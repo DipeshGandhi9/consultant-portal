@@ -1,0 +1,11 @@
+{
+  "global": {
+    "dashboard": "Dashboard",
+    "clients": "Clients",
+    "client": "Client",
+    "consulting": "Consulting"
+  },
+  "login" : {
+    "submitButton" : "Login"
+  }
+}

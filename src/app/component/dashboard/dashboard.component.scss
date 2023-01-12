@@ -1,0 +1,36 @@
+.dashboard {
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start !important;
+    margin: 50px 10px 35px 75px;
+    grid-column-gap: 63px;
+    grid-row-gap: 40px;
+    height: 28%;
+    .card {
+      width: 15rem;
+      height: 15rem;
+      transition-duration: 0.2s;
+      border: none;
+      .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .card:hover {
+        transform: scale(1.02);
+        transition: 0.3s ease-in-out;
+      }
+      .card-title {
+        text-align: center;
+        font-size: 27px;
+        color: #1d4e87;
+      }
+      .card-text {
+        text-align: center;
+        font-size: 40px;
+        color: #1d4e87;
+      }
+    }
+  }
+}

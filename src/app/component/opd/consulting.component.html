@@ -1,0 +1,26 @@
+<div class="consulting-container col-12" id="table">
+  <table class="table table-striped container-fluid col-12">
+    <thead>
+      <tr>
+        <th>Client Name</th>
+        <th>Date</th>
+        <th>Illness</th>
+        <th>Prescription</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of sortedList | filter: searchedText">
+        <td>{{ item.name }}</td>
+        <td>{{ item.date }}</td>
+        <td>{{ item.illness }}</td>
+        <td>{{ item.prescription }}</td>
+        <td>
+          <button pButton class="p-button" (click)="openDetails(item)">
+            Details
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

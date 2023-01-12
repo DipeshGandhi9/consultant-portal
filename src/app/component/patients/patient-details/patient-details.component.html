@@ -1,0 +1,149 @@
+<div class="patient-details">
+  <h4>{{ "global.client" | translate }} Information</h4>
+  <div class="col-md-8" style="display: flex; justify-content: space-between">
+    <p class="col-md-4"><b>Name:</b> {{ client?.name }}</p>
+    <p class="col-md-4"><b>Age:</b> {{ client?.age }}</p>
+  </div>
+  <div class="col-md-8" style="display: flex; justify-content: space-between">
+    <p class="col-md-4"><b>Location:</b> {{ client?.location }}</p>
+    <p class="col-md-4"><b>Phone Number:</b> {{ client?.phoneNumber }}</p>
+  </div>
+  <div class="col-md-8" style="display: flex; justify-content: space-between">
+    <p class="col-md-4"><b>Gender:</b> {{ client?.gender }}</p>
+    <p class="col-md-4" *ngIf="client?.email"><b>Email:</b> {{ client?.email }}</p>
+  </div>
+
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 25px;">
+    <h4>List of {{ "global.consulting" | translate }}</h4>
+
+    <div class="filter-add-section">
+      <div class="col-md-12">
+        <button type="button" pButton class="p-button" (click)="open(content)">
+          Add Consulting
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-striped container-fluid col-12">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Illness</th>
+        <th>Prescription</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of client?.consulting | filter: searchedText">
+        <td>{{ item.date }}</td>
+        <td>{{ item.illness }}</td>
+        <td>{{ item.prescription }}</td>
+        <td class="actions-icons">
+          <i class="bi bi-pencil-fill" style="cursor: pointer;" (click)="openEditModal(content, item)"></i>
+          <i class="bi bi-trash-fill" style="cursor: pointer;" (click)="deleteRecord(item, client)"></i>
+          <button pButton class="p-button" (click)="openDetails(item)">
+            View consulting
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Form modal to add consulting details-->
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{isEditModal ? "Edit Consulting details" : "Add Consulting details"}}</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="consultingForm">
+        <div class="col-md-12">
+          <div class="card-body text-black">
+            <div class="row">
+              <div class="col-md-12 mb-4">
+                <label class="form-label">Date</label>
+                <input
+                  type="date"
+                  class="form-control form-control-lg"
+                  formControlName="date"
+                />
+              </div>
+            </div>
+
+            <div class="col-md-12 mb-4">
+              <label class="form-label" for="form3Example8">Illness</label>
+              <div class="form-outline">
+                <input
+                  type="text"
+                  id="form3Example8"
+                  class="form-control form-control-lg"
+                  formControlName="illness"
+                />
+              </div>
+            </div>
+
+            <div class="col-md-12 mb-4">
+              <div class="form-outline">
+                <label class="form-label"> Illness Description</label>
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  formControlName="illnessDescription"
+                />
+              </div>
+            </div>
+
+            <!-- <quill-editor class="content-editor" [placeholder]="''"  [modules]="quillConfiguration"
+            [styles]="{'min-height': '120px'}"></quill-editor> -->
+
+            <div class="col-md-12 mb-4">
+              <div class="form-outline">
+                <label class="form-label">Prescription</label>
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  formControlName="prescription"
+                />
+              </div>
+            </div>
+
+            <div class="col-md-12 mb-4">
+              <div class="form-outline">
+                <label class="form-label">Prescription Description</label>
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  formControlName="pDescription"
+                />
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end pt-3">
+              <button
+                type="button"
+                class="btn btn-light btn-lg"
+                (click)="resetDetails()"
+              >
+                Reset all
+              </button>
+              <button
+                type="button"
+                (click)="submitDetails(); modal.dismiss('Cross click')"
+                [ngClass]="consultingForm.valid ? 'submit-button btn-lg ms-2' : 'submit-button-invalid'"
+                [disabled]="!consultingForm.valid"
+              >
+                Submit form
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</div>

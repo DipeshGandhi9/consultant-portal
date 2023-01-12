@@ -4,7 +4,9 @@ module.exports = {
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
-      config: {},
+      config: {
+        name: "first-angular-electron-app"
+      },
     },
     {
       name: '@electron-forge/maker-zip',
@@ -12,11 +14,22 @@ module.exports = {
     },
     {
       name: '@electron-forge/maker-deb',
-      config: {},
+      config: {
+        name: "first-angular-electron-app"
+      },
     },
     {
       name: '@electron-forge/maker-rpm',
-      config: {},
+      config: {
+        name: "first-angular-electron-app"
+      },
+    },
+    {
+      name: '@electron-forge/maker-wix',
+      config: {
+        language: 1033,
+        manufacturer: 'Jyoti Technosoft LLP'
+      }
     },
   ],
 };

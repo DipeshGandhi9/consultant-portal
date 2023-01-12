@@ -1,0 +1,13 @@
+.sidebar {
+  .p-sidebar {
+    background: transparent;
+  }
+  .p-sidebar-left {
+    width: 16rem !important;
+    border: none;
+    z-index: 1 !important;
+  }
+  .p-sidebar-content {
+    padding-top: 40px !important;
+  }
+}
