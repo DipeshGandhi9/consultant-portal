@@ -1,5 +1,5 @@
 export enum DATABASESETTINGS {
-    DATABASENAME = 'hospitalManagment',
-    PATIENTTABLE = "patients",
+    DATABASENAME = 'consultent-portal',
+    CLIENTTABLE = "clients",
     USERTABLE = "user"
 }

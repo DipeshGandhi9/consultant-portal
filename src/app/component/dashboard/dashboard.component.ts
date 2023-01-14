@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Select, Store } from '@ngxs/store';
 import { distinctUntilChanged, Observable, ReplaySubject, takeUntil } from 'rxjs';
 
-import { PatientsAction, PatientsModel, PatientsState } from 'src/app/store/patients';
+import { ClientAction, ClientModel, ClientState } from 'src/app/store/client';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,8 +18,8 @@ export class DashboardComponent implements OnInit {
   totalTopDiseases: String = "";
   totalTodaysTopDiseases: String = "";
   
-  @Select(PatientsState.getPatients) getAllClient$:
-    | Observable<PatientsModel[]>
+  @Select(ClientState.getClient) getAllClient$:
+    | Observable<ClientModel[]>
     | undefined;
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
   
@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getClients() {
-    this.store.dispatch(PatientsAction.getAllPatients);
+    this.store.dispatch(ClientAction.getAllClient);
     this.getAllClient$
       ?.pipe(takeUntil(this.destroyed$), distinctUntilChanged())
       .subscribe((data: any) => {

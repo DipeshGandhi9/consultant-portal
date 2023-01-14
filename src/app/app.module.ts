@@ -11,9 +11,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PatientsComponent } from './component/patients/patients.component';
+import { ClientComponent } from './component/client/client.component';
 import { ConsultingComponent } from './component/opd/consulting.component';
-import { PatientDetailsComponent } from './component/patients/patient-details/patient-details.component';
+import { ClientDetailsComponent } from './component/client/client-details/client-details.component';
 import { ConsultingDetailsComponent } from './component/opd/consulting-details/consulting-details.component';
 import { StoreModule } from './store';
 import { MessageService } from 'primeng/api';
@@ -27,9 +27,9 @@ export function HttpLoaderFactory(http: any) {
 @NgModule({
   declarations: [
     AppComponent,
-    PatientsComponent,
+    ClientComponent,
     ConsultingComponent,
-    PatientDetailsComponent,
+    ClientDetailsComponent,
     ConsultingDetailsComponent
   ],
   imports: [

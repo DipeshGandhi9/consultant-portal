@@ -5,8 +5,8 @@ import { AuthGuard } from "../authorization/auth-guard/auth.guard";
 import { DashboardComponent } from "../component/dashboard/dashboard.component";
 import { ConsultingDetailsComponent } from "../component/opd/consulting-details/consulting-details.component";
 import { ConsultingComponent } from "../component/opd/consulting.component";
-import { PatientDetailsComponent } from "../component/patients/patient-details/patient-details.component";
-import { PatientsComponent } from "../component/patients/patients.component";
+import { ClientDetailsComponent } from "../component/client/client-details/client-details.component";
+import { ClientComponent } from "../component/client/client.component";
 import { FullLayoutComponent } from "./full-layout/full-layout.component";
 
 const routes: Routes = [
@@ -17,9 +17,9 @@ const routes: Routes = [
     canActivate:[AuthGuard],
     children: [
       { path: "dashboard", component: DashboardComponent, },
-      { path: "clients", component: PatientsComponent },
+      { path: "clients", component: ClientComponent },
       { path: "consulting", component: ConsultingComponent },
-      { path: "clients/:id", component: PatientDetailsComponent },
+      { path: "clients/:id", component: ClientDetailsComponent },
       { path: "clients/consulting/:id", component: ConsultingDetailsComponent },
     ],
   },

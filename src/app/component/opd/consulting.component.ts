@@ -9,7 +9,7 @@ import {
   takeUntil,
 } from "rxjs";
 
-import { PatientsAction, PatientsModel, PatientsState } from 'src/app/store/patients';
+import { ClientAction, ClientModel, ClientState } from 'src/app/store/client';
 
 @Component({
   selector: "app-consulting",
@@ -19,10 +19,10 @@ import { PatientsAction, PatientsModel, PatientsState } from 'src/app/store/pati
 export class ConsultingComponent implements OnInit {
   searchedText: string = "";
   sortedList: any = [];
-  @Select(PatientsState.getPatients) getAllClient$:
-    | Observable<PatientsModel[]>
+  @Select(ClientState.getClient) getAllClient$:
+    | Observable<ClientModel[]>
     | undefined;
-  @Select(PatientsState.searchClients) searchClients$:  Observable<String> | undefined;
+  @Select(ClientState.searchClients) searchClients$:  Observable<String> | undefined;
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
   constructor(
@@ -32,7 +32,7 @@ export class ConsultingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.store.dispatch(PatientsAction.getAllPatients);
+    this.store.dispatch(ClientAction.getAllClient);
     this.getAllClient$
       ?.pipe(takeUntil(this.destroyed$), distinctUntilChanged())
       .subscribe((data: any) => {

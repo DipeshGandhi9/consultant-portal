@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 
-import { PatientsAction } from 'src/app/store/patients';
+import { ClientAction } from 'src/app/store/client';
 
 @Component({
   selector: 'app-full-layout',
@@ -24,6 +24,6 @@ export class FullLayoutComponent implements OnInit {
 
   changeText(event: any) {
     this.searchedText = event;
-    this.store.dispatch(new PatientsAction.getSearchedClients(event));
+    this.store.dispatch(new ClientAction.getSearchedClients(event));
   }
 }

@@ -1,11 +1,11 @@
 import { NgModule } from "@angular/core";
 import { NgxsModule } from "@ngxs/store";
 
-import { PatientsState } from "./patients";
+import { ClientState } from "./client";
 import { AutenticationState } from './authorization'
 
 const state = [
-    PatientsState,AutenticationState
+    ClientState,AutenticationState
 ];
 @NgModule({
     imports:[
