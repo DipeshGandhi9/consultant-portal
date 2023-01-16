@@ -12,7 +12,7 @@ export namespace ClientAction {
 
   export class updateClient {
     static readonly type = '[Client] updateClient';
-    constructor(public payload: ClientModel, public id: string) {}
+    constructor(public payload: ClientModel, public id: string, public isFromDetails:boolean) {}
   }
 
   export class getSearchedClients {
@@ -22,6 +22,11 @@ export namespace ClientAction {
 
   export class deleteClient {
     static readonly type = '[Client] deleteClient';
+    constructor(public id: string) {}
+  }
+
+  export class getSelectedClient {
+    static readonly type = '[Client] getSelectedClient';
     constructor(public id: string) {}
   }
 }

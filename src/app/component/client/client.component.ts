@@ -37,6 +37,7 @@ export class ClientComponent implements OnInit {
   searchedText: string = "";
   clients: Client[] = [];
   clientForm: FormGroup | any;
+  detailsDialog: boolean = false;
   recordId: any;
 
   @Select(ClientState.getClient) getAllClient$:
@@ -47,7 +48,7 @@ export class ClientComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private formBuilder: FormBuilder,
+    private fb: FormBuilder,
     private router: Router,
     private store: Store
   ) {}
@@ -55,7 +56,14 @@ export class ClientComponent implements OnInit {
   ngOnInit(): void {
     this.getClients();
     this.getSearchedText();
-    this.clientForm = this.formBuilder.group({
+    this.initForm();
+   
+  }
+
+  initForm() {
+    this.clientForm = this.fb.group({
+      firstName : [""],
+      lastName :  [""],
       name: ["", Validators.required],
       date_of_birth: ["", Validators.required],
       birth_time: ["", Validators.required],
@@ -91,10 +99,14 @@ export class ClientComponent implements OnInit {
       });
   }
 
-  open(item: any) {
+  openDialog() {
+    this.detailsDialog = !this.detailsDialog;
+  }
+
+  open() {
     this.recordId = null;
     this.resetDetails();
-    this.modalService.open(item, { ariaLabelledBy: "modal-basic-title" });
+    this.openDialog();
   }
 
   get clientFormControl() {
@@ -105,10 +117,11 @@ export class ClientComponent implements OnInit {
     const payload = this.clientForm.value;
     if(this.recordId) {
       payload.id = this.recordId;
-    this.store.dispatch(new ClientAction.updateClient(payload, payload.id));
+    this.store.dispatch(new ClientAction.updateClient(payload, payload.id, false));
     } else {
       this.store.dispatch(new ClientAction.addClient(payload));
     }
+    this.openDialog();
   }
 
   resetDetails() {
@@ -119,10 +132,10 @@ export class ClientComponent implements OnInit {
     this.router.navigate([`/clients/${id}`]);
   }
 
-  openEditModal(item: any, payload: any) {
+  openEditModal(payload: any) {
     this.recordId = null;
     this.resetDetails();
-    this.modalService.open(item, { ariaLabelledBy: "modal-basic-title" });
+    this.openDialog();
     this.recordId = payload.id;
     this.clientForm.patchValue(payload);
   }

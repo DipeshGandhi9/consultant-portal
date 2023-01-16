@@ -30,8 +30,9 @@ export class ClientDetailsComponent implements OnInit {
   consultingForm: FormGroup | any;
   client: any = {};
   isEditModal: boolean = false;
+  ConsultingDetails : boolean = false ;
   // quillConfiguration = QuillConfiguration
-  @Select(ClientState.getClient) getAllClient$:
+  @Select(ClientState.getSelectedClientData) getClientDetails$:
   | Observable<ClientModel[]>
   | undefined;
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
@@ -54,14 +55,16 @@ export class ClientDetailsComponent implements OnInit {
       prescription: ["", Validators.required],
       pDescription:  ["", Validators.required],
     });
+    this.activatedRoute.params.subscribe((params:any)=>{
+      console.log(params)
+      this.store.dispatch(new ClientAction.getSelectedClient(params.id));
+    })
   }
 
   getClient() {
-    this.store.dispatch(ClientAction.getAllClient);
-    this.getAllClient$?.pipe(takeUntil(this.destroyed$), distinctUntilChanged())
+    this.getClientDetails$?.pipe(takeUntil(this.destroyed$), distinctUntilChanged())
     .subscribe((data: any) => {
-      const id: any = this.activatedRoute.snapshot.paramMap.get('id');
-      this.client = data?.filter((d: any) => d.id == id)[0] || {};
+      this.client = data;
     });
   }
 
@@ -71,35 +74,40 @@ export class ClientDetailsComponent implements OnInit {
     this.router.navigate([`clients/consulting/${this.client.id}`], { queryParams });
   }
 
-  open(item: any) {
+  toggleDialogButton() {
+    this.ConsultingDetails = !this.ConsultingDetails; 
+  }
+  open() {
     this.isEditModal = false;
     this.resetDetails();
-    this.modalService.open(item, { ariaLabelledBy: "modal-basic-title" });
+    this.toggleDialogButton();
   }
 
   submitDetails() {
     let payload: any = this.consultingForm.value || {};
     if(this.isEditModal) {
+      debugger
       const consulting = this.client?.consulting || [];
       const index = consulting?.findIndex((i: any) => new Date(payload.date).getTime() == new Date(i.date).getTime());
       consulting[index] = payload;
       const client = { ...this.client, consulting };
-      this.store.dispatch(new ClientAction.updateClient(client, client.id));
+      this.store.dispatch(new ClientAction.updateClient(client, client.id,true));
     } else {
       const consult = [ ...this.client?.consulting || [], payload];
       const client = { ...this.client, consulting: consult };
-      this.store.dispatch(new ClientAction.updateClient(client, client.id));
+      this.store.dispatch(new ClientAction.updateClient(client, client.id,true));
     }
+    this.toggleDialogButton();
   }
 
   resetDetails() {
     this.consultingForm.reset();
   }
 
-  openEditModal(item: any, payload: any) {
+  openEditModal(payload: any) {
     this.isEditModal = false;
+    this.toggleDialogButton();
     this.resetDetails();
-    this.modalService.open(item, { ariaLabelledBy: "modal-basic-title" });
     this.consultingForm.patchValue(payload);
     this.isEditModal = true;
   }
@@ -109,6 +117,6 @@ export class ClientDetailsComponent implements OnInit {
     const index = consulting?.findIndex((i: any) => new Date(payload.date).getTime() == new Date(i.date).getTime())
     consulting.splice(index, 1);
     client.consulting = consulting;
-    this.store.dispatch(new ClientAction.updateClient(client, client.id));
+    this.store.dispatch(new ClientAction.updateClient(client, client.id,true));
   }
 }

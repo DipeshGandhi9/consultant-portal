@@ -9,6 +9,7 @@ import { MessageService } from "primeng/api";
 export interface ClientStateModel {
   loader: boolean | false;
   clients: ClientModel | undefined;
+  selectedClient: ClientModel | undefined;
   searchedText: string;
 }
 
@@ -16,6 +17,7 @@ export interface ClientStateModel {
   name: "patientsState",
   defaults: {
     loader: false,
+    selectedClient: undefined,
     clients: undefined,
     searchedText: "",
   },
@@ -36,6 +38,11 @@ export class ClientState {
   @Selector()
   static searchClients(state: ClientStateModel) {
     return state.searchedText;
+  }
+
+  @Selector()
+  static getSelectedClientData(state: ClientStateModel) {
+    return state.selectedClient;
   }
 
   @Action(ClientAction.getSearchedClients)
@@ -92,22 +99,42 @@ export class ClientState {
   @Action(ClientAction.updateClient)
   updateClient(
     { getState, setState, patchState }: StateContext<ClientStateModel>,
-    { payload, id }: ClientAction.updateClient
+    { payload, id, isFromDetails }: ClientAction.updateClient
   ) {
     const state = getState();
     return this.DataStoreService.table(DATABASESETTINGS.CLIENTTABLE)
       .update(id, payload)
       .then((res: any) => {
         if (res === 1) {
-          const data: any = state.clients;
-          const indexData = data.findIndex((val: any) => val.id === id);
-          data[indexData] = payload;
-          patchState({ clients: data });
+          if(isFromDetails) {
+            this.store.dispatch(new ClientAction.getSelectedClient(id))
+          } else {
+            this.store.dispatch(ClientAction.getAllClient);
+          }
+          this.messageService.add({severity:'success', summary: 'Success', detail: 'Client Updated Successfully'});
         }
       })
       .catch((res: any) => {
+        this.messageService.add({severity:'error', summary: 'error', detail: 'Failed to Update Client'});
         console.log(res);
       });
+  }
+
+  @Action(ClientAction.getSelectedClient)
+  getSelectedClient(
+    { getState, patchState }: StateContext<ClientStateModel>,
+    { id }: ClientAction.getSelectedClient
+  ) {
+    const state = getState();
+    return this.DataStoreService.table(DATABASESETTINGS.CLIENTTABLE)
+      .filter((value) => value.id == id)
+      .toArray()
+      .then((data)=>{
+        console.log(data)
+        if (data.length > 0) {
+          patchState({selectedClient:data[0]})
+        }
+      })
   }
 
   @Action(ClientAction.deleteClient)
@@ -122,10 +149,10 @@ export class ClientState {
         const data: any = state.clients;
         const filterData = data?.filter((val: any) => val.id == !id);
         patchState({ clients: filterData });
-        this.messageService.add({severity:'success', summary: 'Success', detail: 'Data Deleted Successfully'});
+        this.messageService.add({severity:'success', summary: 'Success', detail: 'Entry Deleted Successfully'});
       })
       .catch((res: any) => {
-        this.messageService.add({severity:'success', summary: 'Success', detail: 'Cannot delete iqqty'});
+        this.messageService.add({severity:'success', summary: 'Success', detail: 'Cannot delete Entry'});
       });
   }
 }

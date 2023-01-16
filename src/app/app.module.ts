@@ -7,7 +7,12 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { EditorModule } from 'primeng/editor';
+import { DropdownModule } from 'primeng/dropdown';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,11 +24,11 @@ import { StoreModule } from './store';
 import { MessageService } from 'primeng/api';
 import { DataStoreService } from './global-provider/data-store/data-store.service';
 import {ToastModule} from 'primeng/toast';
+import { SharedComponentModule } from './shared-component/shared-component.module';
 
 export function HttpLoaderFactory(http: any) {
   return new TranslateHttpLoader(http);
 }
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,8 +39,14 @@ export function HttpLoaderFactory(http: any) {
   ],
   imports: [
     BrowserModule,
+    DialogModule,
+    DropdownModule,
+    RadioButtonModule,
+    EditorModule,
+    ButtonModule,
     ToastModule,
     BrowserAnimationsModule,
+    SharedComponentModule,
     TableModule,
     AppRoutingModule,
     NgbModule,
