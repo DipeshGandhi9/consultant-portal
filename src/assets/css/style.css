@@ -372,6 +372,7 @@ h6 {
 --------------------------------------------------------------*/
 .logo {
   line-height: 1;
+  text-transform: uppercase;
 }
 
 @media (min-width: 1200px) {
@@ -380,8 +381,13 @@ h6 {
   }
 }
 
+a.logo, a.logo:hover{
+  color: #367dc8;
+  text-decoration-thickness: 5px;
+}
+
 .logo img {
-  max-height: 26px;
+  max-height: 42px;
   margin-right: 6px;
 }
 
