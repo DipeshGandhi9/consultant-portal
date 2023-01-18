@@ -26,7 +26,8 @@
   </div>
   
 
-  <table class="table table-striped container-fluid col-12">
+  <app-table [data]="client?.consulting" [tableHeader]="clientConsultingTableData.header" [tableData]="clientConsultingTableData" [editButtons]="false" (changeDetect)="openDetails($event.data)"></app-table>
+  <!-- <table class="table table-striped container-fluid col-12">
     <thead>
       <tr>
         <th>Date</th>
@@ -49,7 +50,7 @@
         </td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
 
   <!-- Form modal to add consulting details-->
   <p-dialog header="{{isEditModal ? 'Edit Consulting Details' : 'Add Consulting Details'}}" [(visible)]="ConsultingDetails" [modal]="true" [style]="{width: '50vw'}" [maximizable]="true" [baseZIndex]="10000"

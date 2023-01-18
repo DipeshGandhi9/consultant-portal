@@ -146,9 +146,7 @@ export class ClientState {
     return this.DataStoreService.table(DATABASESETTINGS.CLIENTTABLE)
       .delete(id)
       .then((res: any) => {
-        const data: any = state.clients;
-        const filterData = data?.filter((val: any) => val.id == !id);
-        patchState({ clients: filterData });
+        this.store.dispatch(ClientAction.getAllClient);
         this.messageService.add({severity:'success', summary: 'Success', detail: 'Entry Deleted Successfully'});
       })
       .catch((res: any) => {

@@ -3,8 +3,8 @@ import { RouterModule, Routes } from "@angular/router";
 import { AuthGuard } from "../authorization/auth-guard/auth.guard";
 
 import { DashboardComponent } from "../component/dashboard/dashboard.component";
-import { ConsultingDetailsComponent } from "../component/opd/consulting-details/consulting-details.component";
-import { ConsultingComponent } from "../component/opd/consulting.component";
+import { ConsultingDetailsComponent } from "../component/consulting/consulting-details/consulting-details.component";
+import { ConsultingComponent } from "../component/consulting/consulting.component";
 import { ClientDetailsComponent } from "../component/client/client-details/client-details.component";
 import { ClientComponent } from "../component/client/client.component";
 import { FullLayoutComponent } from "./full-layout/full-layout.component";

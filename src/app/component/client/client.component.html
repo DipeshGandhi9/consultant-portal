@@ -1,12 +1,17 @@
 <div class="client-container col-12" id="table">
-  <div class="filter-add-section">
-    <div class="col-md-12">
-      <button type="button" pButton class="p-button" (click)="open()">
-        Add Client
-      </button>
+  <div class="d-flex justify-content-between">
+    <h4>List of {{ "global.clients" | translate }}</h4>
+    <div class="filter-add-section">
+      <div class="col-md-12">
+        <button type="button" pButton class="p-button" (click)="open()">
+          Add Client
+        </button>
+      </div>
     </div>
+
   </div>
-  <table class="table table-striped container-fluid col-12">
+  <app-table [data]="clients" [tableHeader]="ClientData.header" [tableData]="ClientData" (changeDetect)="DetectChange($event)"></app-table>
+  <!-- <table class="table table-striped container-fluid col-12">
     <thead>
       <tr>
         <th>Name</th>
@@ -23,7 +28,7 @@
         <td>{{ client.age }}</td>
         <td>{{ client.phone_number }}</td>
         <td>{{ client.email }}</td>
-        <td>{{ client?.address }} , {{ client?.city }} , {{ client?.state }} , {{ client?.country }}</td>
+        <td>{{ client??.address }} , {{ client?.city }} , {{ client?.state }} , {{ client?.country }} , {{ client?.city }} , {{ client?.state }} , {{ client?.country }}</td>
         <td class="actions-icons">
           <i
             class="bi bi-pencil-fill"
@@ -41,7 +46,7 @@
         </td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
 
   <!-- Form modal to add patient details-->
 <p-dialog header="{{ recordId ? 'Edit Client Details' : 'Add Client Details' }}"  [modal]="true"  [(visible)]="detailsDialog" [style]="{width: '50vw'}" [baseZIndex]="1">

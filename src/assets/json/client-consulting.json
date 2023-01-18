@@ -1,0 +1,31 @@
+{
+    "header": [
+      {
+        "label": "Date",
+        "sortKey": "date",
+        "defaultValue": null,
+        "sortable": true,
+        "filter": true,
+        "show": true
+      },
+      {
+        "label": "illness",
+        "sortKey": "illness",
+        "defaultValue": null,
+        "sortable": true,
+        "filter": true,
+        "show": true
+      },
+      {
+        "label": "Prescription",
+        "sortKey": "prescription",
+        "defaultValue": null,
+        "sortable": true,
+        "filter": true,
+        "show": true
+      }
+    ],
+    "TableId": "clientConsultingTable",
+    "isActionColumn": true
+  }
+  

@@ -27,3 +27,13 @@
     border: none;
     border-radius: 5px;
 }
+.p-button {
+    color: #fff;
+    background: #bfc0c7;
+    border: 1px solid #bfc0c7;
+    float: right;
+    :hover {
+      color: #fff !important;
+      background: #bfc0c7 !important;
+    }
+}

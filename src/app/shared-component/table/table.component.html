@@ -1,1 +1,46 @@
-<p>table works!</p>
+<p-table #dt [value]="data" selectionMode="single" [(selection)]="selectedCustomer2" dataKey="id" sortMode="multiple"
+    styleClass="p-datatable-customers" [columns]="tableHeader" [rows]="5" [paginator]="true" stateStorage="local"
+    [stateKey]="tableData?.TableId"  [globalFilterFields]="['name','','email','address','phone_number']">
+    <ng-template pTemplate="caption">
+        <div class="d-flex justify-content-end">
+            <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="applyFilter($event)" placeholder="Search keyword" [(ngModel)]="searchedValue" />
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" style="width: 20%" [pSortableColumn]="col.sortKey">
+                {{ col.label }}
+                <p-sortIcon [field]="col.sortKey"></p-sortIcon>
+            </th>
+            <th *ngIf="tableData?.isActionColumn" style="width: 5%;">
+                Actions
+            </th>
+        </tr>
+        <tr>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+        <tr style="height:46px">
+            
+            <td *ngFor="let col of columns">
+                {{ rowData[col.sortKey] }}
+            </td>
+            <td *ngIf="tableData?.isActionColumn" class="actions-icons">
+                <i *ngIf="editButtons" class="bi bi-pencil-fill" style="cursor: pointer;margin-right: 10px;" (click)="DataChange('EDIT',rowData)"></i>
+                <i *ngIf="editButtons"class="bi bi-trash-fill" style="cursor: pointer;margin-right: 10px;" (click)="DataChange('DELETE',rowData)"></i>
+                <button pButton class="p-button" (click)="DataChange('DETAILS',rowData)">
+                    Details
+                </button>
+
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="4">No Data found.</td>
+        </tr>
+    </ng-template>
+</p-table>

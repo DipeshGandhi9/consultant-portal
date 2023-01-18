@@ -1,0 +1,46 @@
+{
+  "header": [
+    {
+      "label": "Name",
+      "sortKey": "name",
+      "defaultValue": null,
+      "sortable": true,
+      "filter": true,
+      "show": true
+    },
+    {
+      "label": "Email",
+      "sortKey": "email",
+      "defaultValue": null,
+      "sortable": true,
+      "filter": true,
+      "show": true
+    },
+    {
+      "label": "Address",
+      "sortKey": "address",
+      "defaultValue": null,
+      "sortable": true,
+      "filter": true,
+      "show": true
+    },
+    {
+      "label": "Phone Number",
+      "sortKey": "phone_number",
+      "defaultValue": null,
+      "sortable": true,
+      "filter": true,
+      "show": true
+    },
+    {
+      "label": "Age",
+      "sortKey": "age",
+      "defaultValue": null,
+      "sortable": true,
+      "filter": true,
+      "show":true
+    }
+  ],
+  "TableId": "clientList",
+  "isActionColumn": true
+}

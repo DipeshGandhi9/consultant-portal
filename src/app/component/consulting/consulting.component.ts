@@ -10,6 +10,7 @@ import {
   takeUntil,
 } from 'rxjs';
 
+import ConsultingTableData from 'src/assets/json/consulting.json';
 import { ClientAction, ClientModel, ClientState } from 'src/app/store/client';
 
 @Component({
@@ -20,6 +21,7 @@ import { ClientAction, ClientModel, ClientState } from 'src/app/store/client';
 export class ConsultingComponent implements OnInit, OnDestroy {
   searchedText: string = '';
   detailsDialog : boolean = false;
+  ConsultingTableData = {...ConsultingTableData}
   isEditModal: boolean = false;
   sortedList: any = [];
   selectedUser: any ;
@@ -156,6 +158,10 @@ export class ConsultingComponent implements OnInit, OnDestroy {
     this.resetDetails();
     this.consultingForm.patchValue(payload);
     this.isEditModal = true;
+  }
+
+  changeDetect(event:any) {
+    this.openDetails(event.data)
   }
 
   ngOnDestroy() {

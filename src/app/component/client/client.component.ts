@@ -10,6 +10,7 @@ import {
   takeUntil,
 } from "rxjs";
 
+import ClientData from 'src/assets/json/client.json'
 import { ClientAction, ClientModel, ClientState } from 'src/app/store/client';
 
 interface Client {
@@ -36,6 +37,7 @@ interface Client {
 export class ClientComponent implements OnInit {
   searchedText: string = "";
   clients: Client[] = [];
+  ClientData = {...ClientData}
   clientForm: FormGroup | any;
   detailsDialog: boolean = false;
   recordId: any;
@@ -142,5 +144,21 @@ export class ClientComponent implements OnInit {
 
   deleteRecord(id: any) {
     this.store.dispatch(new ClientAction.deleteClient(id));
+  }
+
+  DetectChange(data:any) {
+     switch (data.type) {
+      case "DETAILS":
+         this.openDetails(data.data.id);
+        break;
+      case "DELETE":
+         this.deleteRecord(data.data.id)
+        break;
+      case "EDIT" :
+         this.openEditModal(data.data);
+        break; 
+      default:
+        break;
+     }
   }
 }

@@ -1,0 +1,39 @@
+{
+    "header": [
+      {
+        "label": "Name",
+        "sortKey": "name",
+        "defaultValue": null,
+        "sortable": true,
+        "filter": true,
+        "show": true
+      },
+      {
+        "label": "Date",
+        "sortKey": "date",
+        "defaultValue": null,
+        "sortable": true,
+        "filter": true,
+        "show": true
+      },
+      {
+        "label": "Illlness",
+        "sortKey": "illness",
+        "defaultValue": null,
+        "sortable": true,
+        "filter": true,
+        "show": true
+      },
+      {
+        "label": "Prescription",
+        "sortKey": "prescription",
+        "defaultValue": null,
+        "sortable": true,
+        "filter": true,
+        "show": true
+      }
+    ],
+    "TableId": "ConsultingTable",
+    "isActionColumn": true
+  }
+  

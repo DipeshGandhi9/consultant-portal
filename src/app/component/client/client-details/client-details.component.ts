@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Select, Store } from '@ngxs/store';
 import { distinctUntilChanged, Observable, ReplaySubject, takeUntil } from 'rxjs';
 
+import clientConsultingTableData from 'src/assets/json/client-consulting.json';
 import { ClientAction, ClientModel, ClientState } from 'src/app/store/client';
 
 // export const QuillConfiguration = {
@@ -30,6 +31,7 @@ export class ClientDetailsComponent implements OnInit {
   consultingForm: FormGroup | any;
   client: any = {};
   isEditModal: boolean = false;
+  clientConsultingTableData = {...clientConsultingTableData};
   ConsultingDetails : boolean = false ;
   // quillConfiguration = QuillConfiguration
   @Select(ClientState.getSelectedClientData) getClientDetails$:
