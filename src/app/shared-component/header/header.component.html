@@ -1,31 +1,46 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
   <div class="d-flex align-items-center justify-content-between">
-    <a class="logo d-flex align-items-center" (click)="onShowSidebarClick()">
+    <a
+      class="logo d-flex align-items-center"
+      (click)="onShowSidebarClick()"
+      style="cursor: pointer; text-decoration: none !important"
+    >
       <img src="assets/img/logo.png" alt="" />
-      <span class="d-none d-lg-block">Consultent</span>
+      <span class="d-lg-block">consultant</span>
     </a>
     <!-- <i class="bi bi-list toggle-sidebar-btn" ></i> -->
   </div>
 
-  <div class="search-bar" *ngIf="showSearchBar">
+  <!-- <div class="search-bar" *ngIf="showSearchBar">
     <form class="search-form d-flex align-items-center" method="POST" action="#">
       <input type="text" (change)="onChangeText($event)" pInputText placeholder="Search">
       <button type="submit" title="Search"><i class="bi bi-search"></i></button>
     </form>
-  </div>
+  </div> -->
 
   <nav class="header-nav ms-auto">
     <ul class="d-flex align-items-center">
-      <li class="nav-item d-block d-lg-none">
+      <!-- <li class="nav-item d-block d-lg-none">
         <a class="nav-link nav-icon search-bar-toggle" href="#">
           <i class="bi bi-search"></i>
         </a>
-      </li>
+      </li> -->
 
       <li class="nav-item dropdown pe-3">
-        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-          <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" />
-          <span class="d-none d-md-block dropdown-toggle ps-2">Dipesh Gandhi</span> </a>
+        <a
+          class="nav-link nav-profile d-flex align-items-center pe-0"
+          style="cursor: pointer"
+          data-bs-toggle="dropdown"
+        >
+          <img
+            src="assets/img/profile-img.jpg"
+            alt="Profile"
+            class="rounded-circle"
+          />
+          <span class="d-none d-md-block dropdown-toggle ps-2"
+            >Dipesh Gandhi</span
+          >
+        </a>
 
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
           <li class="dropdown-header">
@@ -36,10 +51,17 @@
             <hr class="dropdown-divider" />
           </li>
 
-          <li style="cursor: pointer;">
+          <li class="hover" style="cursor: pointer">
+            <a
+              class="dropdown-item d-flex align-items-center"
+              (click)="information = true"
+            >
+              <i class="bi bi-info-square"></i>
+              <span>About Us</span>
+            </a>
           </li>
 
-          <li (click)="logout()" class="hover" style="cursor: pointer;">
+          <li (click)="logout()" class="hover" style="cursor: pointer">
             <a class="dropdown-item d-flex align-items-center">
               <i class="bi bi-box-arrow-right"></i>
               <span>Sign Out</span>
@@ -50,3 +72,38 @@
     </ul>
   </nav>
 </header>
+
+<p-dialog
+  header="About Us "
+  [(visible)]="information"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="container">
+    <div class="d-flex justify-content-around ">
+      <img src="assets/img/logo.png" alt="" />
+    </div>
+    <div class="content">
+      <h1>Jyoti Technosoft LLP</h1>
+       <p>Visit Our Website at jyotitechnosoft for more updates</p>
+       <div class="copyright">
+        &copy; Copyright <strong><span>Jyoti Technosoft LLP</span></strong>
+
+         All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed by <a href="https://jyotitechnosoft.com/" target="_blank">Jyoti Technosoft LLP</a>
+      </div>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-times"
+      (click)="information = false"
+      label="Close"
+    ></p-button>
+  </ng-template>
+</p-dialog>

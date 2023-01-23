@@ -381,10 +381,6 @@ h6 {
   }
 }
 
-a.logo, a.logo:hover{
-  color: #367dc8;
-  text-decoration-thickness: 5px;
-}
 
 .logo img {
   max-height: 42px;

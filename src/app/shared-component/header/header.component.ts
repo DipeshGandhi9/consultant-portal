@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit, OnChanges {
   @Output() showSidebar = new EventEmitter();
   showSearchBar: boolean = true;
   searchedText: string = "";
+  information : boolean = false ;
   @Output() changeText = new EventEmitter();
 
   constructor(
@@ -40,7 +41,9 @@ export class HeaderComponent implements OnInit, OnChanges {
     this.showSidebar.emit();
   }
   logout() {
-    console.log("console log ")
     this.store.dispatch(AutenticationAction.Logout);
+  }
+  routeToDashboard() {
+    this.router.navigateByUrl('https://jyotitechnosoft.com/')
   }
 }

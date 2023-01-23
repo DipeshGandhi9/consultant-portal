@@ -13,6 +13,10 @@
         color: #fff;
         background: #bfc0c7;
         border: 1px solid #bfc0c7;
+        float: right;
+    }
+    .container-fluid {
+        margin-top: 30px;
     }
     .actions-icons {
         display: flex;
@@ -27,13 +31,34 @@
     border: none;
     border-radius: 5px;
 }
-.p-button {
+.submit-button-invalid {
     color: #fff;
-    background: #bfc0c7;
-    border: 1px solid #bfc0c7;
-    float: right;
-    :hover {
-      color: #fff !important;
-      background: #bfc0c7 !important;
-    }
+    background: #1d4e87;
+    border: none;
+    border-radius: 5px;
+    opacity: 0.8;
+    cursor: default;
+}
+.width-set {
+    width: 49% !important;
+}
+.fees-large {
+    font-size: 1rem;
+    border-radius: 0.2rem;
+}
+.validation-msg {
+    color: #FF8585;
+    font-size: 12px;
+}
+.button {
+    background: #fff !important;
+    margin-right: 5px !important;
+    color: #040408 !important ;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
 }

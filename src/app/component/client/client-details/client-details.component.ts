@@ -4,39 +4,36 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { Select, Store } from '@ngxs/store';
-import { distinctUntilChanged, Observable, ReplaySubject, takeUntil } from 'rxjs';
+import {
+  distinctUntilChanged,
+  Observable,
+  ReplaySubject,
+  takeUntil,
+} from 'rxjs';
 
 import clientConsultingTableData from 'src/assets/json/client-consulting.json';
 import { ClientAction, ClientModel, ClientState } from 'src/app/store/client';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
-// export const QuillConfiguration = {
-//   toolbar: [
-//     ['bold', 'italic', 'underline', 'strike'],
-//     ['blockquote', 'code-block'],
-//     [{ list: 'ordered' }, { list: 'bullet' }],
-//     [{ header: [1, 2, 3, 4, 5, 6, false] }],
-//     [{ color: [] }, { background: [] }],
-//     ['link'],
-//     ['clean'],
-//   ],
-// }
 @Component({
   selector: 'app-client-details',
   templateUrl: './client-details.component.html',
-  styleUrls: ['./client-details.component.scss']
+  styleUrls: ['./client-details.component.scss'],
 })
 export class ClientDetailsComponent implements OnInit {
-
-  searchedText: string = "";
+  searchedText: string = '';
   consultingForm: FormGroup | any;
   client: any = {};
+  feesOptions: any[] =  [
+    {label : 'Paid' , value : true },
+    {label : 'Unpaid' , value : false }
+  ]
   isEditModal: boolean = false;
-  clientConsultingTableData = {...clientConsultingTableData};
-  ConsultingDetails : boolean = false ;
-  // quillConfiguration = QuillConfiguration
+  clientConsultingTableData = { ...clientConsultingTableData };
+  ConsultingDetails: boolean = false;
   @Select(ClientState.getSelectedClientData) getClientDetails$:
-  | Observable<ClientModel[]>
-  | undefined;
+    | Observable<ClientModel[]>
+    | undefined;
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
   constructor(
@@ -45,39 +42,47 @@ export class ClientDetailsComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private store: Store
-  ) { }
+    private store: Store,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.getClient();
     this.consultingForm = this.formBuilder.group({
-      date: ["", Validators.required],
-      illness: ["", Validators.required],
-      illnessDescription:  ["", Validators.required],
-      prescription: ["", Validators.required],
-      pDescription:  ["", Validators.required],
+      uuid: [''],
+      date: ['', Validators.required],
+      consulting: ['', Validators.required],
+      paid: [''],
+      fees :[0],
+      consultingDescription: ['', Validators.required],
+      resolution: ['', Validators.required],
+      pDescription: ['', Validators.required],
     });
-    this.activatedRoute.params.subscribe((params:any)=>{
-      console.log(params)
+    this.activatedRoute.params.subscribe((params: any) => {
       this.store.dispatch(new ClientAction.getSelectedClient(params.id));
-    })
+    });
   }
 
   getClient() {
-    this.getClientDetails$?.pipe(takeUntil(this.destroyed$), distinctUntilChanged())
-    .subscribe((data: any) => {
-      this.client = data;
-    });
+    this.getClientDetails$
+      ?.pipe(takeUntil(this.destroyed$), distinctUntilChanged())
+      .subscribe((data: any) => {
+        this.client = data;
+      });
   }
 
   openDetails(item: any) {
-    const queryParams: any = {};
-    queryParams.myArray = JSON.stringify(item);
-    this.router.navigate([`clients/consulting/${this.client.id}`], { queryParams });
+    const data = {
+      clientId: this.client.id,
+      uuid: item.uuid,
+    };
+    const queryParams: any = { ...data };
+    this.router.navigate(['clients-consulting'], { queryParams });
   }
 
   toggleDialogButton() {
-    this.ConsultingDetails = !this.ConsultingDetails; 
+    this.ConsultingDetails = !this.ConsultingDetails;
   }
   open() {
     this.isEditModal = false;
@@ -87,21 +92,39 @@ export class ClientDetailsComponent implements OnInit {
 
   submitDetails() {
     let payload: any = this.consultingForm.value || {};
-    if(this.isEditModal) {
-      debugger
+    if (this.isEditModal) {
       const consulting = this.client?.consulting || [];
-      const index = consulting?.findIndex((i: any) => new Date(payload.date).getTime() == new Date(i.date).getTime());
+      const index = consulting?.findIndex((i: any) => i.uuid == payload.uuid);
       consulting[index] = payload;
       const client = { ...this.client, consulting };
-      this.store.dispatch(new ClientAction.updateClient(client, client.id,true));
+      this.store.dispatch(
+        new ClientAction.updateClient(client, client.id, true)
+      );
     } else {
-      const consult = [ ...this.client?.consulting || [], payload];
+      payload.uuid = new Date().getTime().toString();
+      const consult = [...(this.client?.consulting || []), payload];
       const client = { ...this.client, consulting: consult };
-      this.store.dispatch(new ClientAction.updateClient(client, client.id,true));
+      this.store.dispatch(
+        new ClientAction.updateClient(client, client.id, true)
+      );
     }
     this.toggleDialogButton();
   }
-
+  handleChange(event: any) {
+    switch (event.type) {
+      case 'EDIT':
+        this.openEditModal(event.data);
+        break;
+      case 'DELETE':
+        this.deleteRecord(event.data, this.client);
+        break;
+      case 'DETAILS':
+        this.openDetails(event.data);
+        break;
+      default:
+        break;
+    }
+  }
   resetDetails() {
     this.consultingForm.reset();
   }
@@ -115,10 +138,26 @@ export class ClientDetailsComponent implements OnInit {
   }
 
   deleteRecord(payload: any, client: any) {
-    const consulting = client?.consulting || [];
-    const index = consulting?.findIndex((i: any) => new Date(payload.date).getTime() == new Date(i.date).getTime())
-    consulting.splice(index, 1);
-    client.consulting = consulting;
-    this.store.dispatch(new ClientAction.updateClient(client, client.id,true));
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to delete this record?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        const consulting = client?.consulting || [];
+        const index = consulting?.findIndex((i: any) => i.uuid == payload.uuid);
+        consulting.splice(index, 1);
+        client.consulting = consulting;
+        this.store.dispatch(
+          new ClientAction.updateClient(client, client.id, true)
+        );
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Denied',
+          detail: 'You have Denied the confirmation',
+        });
+      },
+    });
   }
 }

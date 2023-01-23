@@ -5,7 +5,8 @@ import { SidebarModule } from 'primeng/sidebar';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
-
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
  
 import { SharedComponentRoutingModule } from './shared-component-routing.module';
 import { TableComponent } from './table/table.component';
@@ -24,7 +25,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   ],
   imports: [
     CommonModule,
+    DialogModule,
     TableModule,
+    ButtonModule,
     InputTextModule,
     SharedComponentRoutingModule,
     MegaMenuModule,

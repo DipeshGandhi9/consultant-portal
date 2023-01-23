@@ -1,13 +1,15 @@
-.consulting-details {
-    margin-top: 2%;
-    padding: 15px;
-    h4 {
-        color: #1d4e87;
-        margin-bottom: 25px;
-    }
-    .p-button {
-        color: #fff;
-        background: #bfc0c7;
-        border: 1px solid #bfc0c7;
-    }
+.consulting-container {
+    padding: 0.8rem !important;
 }
+.image {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    background: #004D3C;
+    font-size: 3.5rem;
+    color: #fff;
+    text-align: center;
+    line-height: 10rem;
+    margin: 2rem 0;
+  }

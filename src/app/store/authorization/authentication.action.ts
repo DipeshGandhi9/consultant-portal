@@ -12,4 +12,9 @@ export namespace AutenticationAction {
     constructor() {}
   }
 
+  export class validateLogins {
+    static readonly type = "[Autentication] validateLogin";
+    constructor() {}
+  }
+
 }

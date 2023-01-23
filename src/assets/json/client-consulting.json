@@ -9,16 +9,16 @@
         "show": true
       },
       {
-        "label": "illness",
-        "sortKey": "illness",
+        "label": "Consulting For",
+        "sortKey": "consulting",
         "defaultValue": null,
         "sortable": true,
         "filter": true,
         "show": true
       },
       {
-        "label": "Prescription",
-        "sortKey": "prescription",
+        "label": "Resolution",
+        "sortKey": "resolution",
         "defaultValue": null,
         "sortable": true,
         "filter": true,

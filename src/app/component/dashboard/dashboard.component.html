@@ -3,25 +3,25 @@
     <div class="card col-xxl-4 col-md-6">
       <div class="card-body">
         <h5 class="card-title">Total Clients</h5>
-        <h6 class="card-text">{{ totalClients }}</h6>
+        <h6 class="card-text">{{ totalClients ? totalClients : '-' }}</h6>
       </div>
     </div>
     <div class="card col-xxl-4 col-md-6">
       <div class="card-body">
-        <h5 class="card-title">Today's Total Clients</h5>
-        <h6 class="card-text">{{ totalTodaysClients }}</h6>
+        <h5 class="card-title">Today's New Clients</h5>
+        <h6 class="card-text">{{ totalTodaysClients ? totalTodaysClients : '-' }}</h6>
       </div>
     </div>
     <div class="card col-xxl-4 col-md-6">
       <div class="card-body">
-        <h5 class="card-title">Top diseases</h5>
-        <h6 class="card-text">{{ totalTopDiseases }}</h6>
+        <h5 class="card-title">Total Consulting</h5>
+        <h6 class="card-text">{{ totalTopDiseases ? totalTopDiseases : '-' }}</h6>
       </div>
     </div>
     <div class="card col-xxl-4 col-md-6">
       <div class="card-body">
-        <h5 class="card-title">Today's Top diseases</h5>
-        <h6 class="card-text">{{ totalTodaysTopDiseases }}</h6>
+        <h5 class="card-title">Today's Consulting</h5>
+        <h6 class="card-text">{{ totalTodaysTopDiseases ? totalTodaysTopDiseases : '-'  }}</h6>
       </div>
     </div>
   </div>

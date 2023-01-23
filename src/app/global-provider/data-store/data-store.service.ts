@@ -9,9 +9,8 @@ export class DataStoreService extends Dexie {
 
   constructor() {
     super(DATABASESETTINGS.DATABASENAME);                     
-    console.log("database connection")
     this.version(1).stores({
-      clients: '++id, name, date_of_birth, birth_time, phone_number,address,city, state, cuntry, email',
+      clients: '++id, first_name,last_name, date_of_birth, birth_time, phone_number,address,city, state, country, email,date',
     });
 
     this.version(2).stores({

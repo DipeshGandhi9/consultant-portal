@@ -6,7 +6,7 @@ import { AutenticationState } from 'src/app/store/authorization';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class NotAuthGuard implements CanActivate {
 
   constructor(
     public store : Store, private router : Router
@@ -16,10 +16,10 @@ export class AuthGuard implements CanActivate {
    let isUserAuthenticated = localStorage.getItem("isUserAuthenticated");
    const isloggedIn = this.store.selectSnapshot(AutenticationState.isUserLoggedIn);
 
-    if(isUserAuthenticated == 'true' && isloggedIn) {
+    if(isUserAuthenticated != 'true' && !isloggedIn) {
       return true
     }
-    this.router.navigate(['/login']); 
+    this.router.navigate(['/dashboard']); 
     return false
   }
 }

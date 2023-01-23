@@ -9,24 +9,8 @@
       "show": true
     },
     {
-      "label": "Email",
-      "sortKey": "email",
-      "defaultValue": null,
-      "sortable": true,
-      "filter": true,
-      "show": true
-    },
-    {
       "label": "Address",
       "sortKey": "address",
-      "defaultValue": null,
-      "sortable": true,
-      "filter": true,
-      "show": true
-    },
-    {
-      "label": "Phone Number",
-      "sortKey": "phone_number",
       "defaultValue": null,
       "sortable": true,
       "filter": true,
@@ -39,6 +23,22 @@
       "sortable": true,
       "filter": true,
       "show":true
+    },
+    {
+      "label": "Email",
+      "sortKey": "email",
+      "defaultValue": null,
+      "sortable": true,
+      "filter": true,
+      "show": true
+    },
+    {
+      "label": "Phone Number",
+      "sortKey": "phone_number",
+      "defaultValue": null,
+      "sortable": true,
+      "filter": true,
+      "show": true
     }
   ],
   "TableId": "clientList",

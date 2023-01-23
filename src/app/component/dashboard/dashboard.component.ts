@@ -39,33 +39,38 @@ export class DashboardComponent implements OnInit {
       .subscribe((data: any) => {
         if(data?.length) {
           this.clients = data;
-          setTimeout(() => {
-            this.calculate();
-          }, 1000);
+          this.calculate();
         }
       });
   }
 
   calculate() {
     this.totalClients = this.clients?.length;
-    let todaysClients: any = [], topDiseases: any = [], todaysTopDiseases: any = [];
+    let todaysClients: any = [], topDiseases: any = [], todaysTopDiseases: any = 0,totalConsultent:any = 0;
     this.clients?.map((client: any) => {
-      client?.consulting?.map((item: any) => {
-        const d1: any = new Date()
-        const d2: any = new Date(item.date);
+      const d1: any = new Date()
+        const d2: any = new Date(client.date);
         d1.setHours(0,0,0,0);
         d2.setHours(0,0,0,0);
-        if(d1.getTime() == d2.getTime()) {
+        if (d1.getTime() == d2.getTime()) {
           todaysClients.push(client);
-          todaysTopDiseases.push(item.illness);
+        }
+        client?.consulting?.map((item: any) => {
+          const d1: any = new Date()
+          const d2: any = new Date(item.date);
+          d1.setHours(0,0,0,0);
+          d2.setHours(0,0,0,0);
+          totalConsultent = totalConsultent+1;
+        if(d1.getTime() == d2.getTime()) {
+          todaysTopDiseases = todaysTopDiseases +1  ;
         } else {
-          topDiseases.push(item.illness);
+          topDiseases.push(item.consulting);
         }
       });
     })
     this.totalTodaysClients = todaysClients.length;
-    this.totalTopDiseases = this.getFrequentItem(topDiseases);
-    this.totalTodaysTopDiseases = this.getFrequentItem(todaysTopDiseases);
+    this.totalTopDiseases = totalConsultent ;
+    this.totalTodaysTopDiseases = todaysTopDiseases;
   }
 
   getFrequentItem(arr: any = []) {

@@ -7,25 +7,29 @@
   >
     <ul class="sidebar-nav" id="sidebar-nav">
       <li class="nav-item">
-        <a class="nav-link collapsed" routerLink="/dashboard">
+        <a class="nav-link collapsed" routerLink="/dashboard" routerLinkActive="active" >
           <i class="pi pi-chart-bar" style="font-size: 1rem;"></i>
           <span class="mt-1">Dashboard</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" routerLink="/clients">
+        <a class="nav-link collapsed" routerLink="/clients" routerLinkActive="active" >
           <i class="pi pi-users" style="font-size: 1rem"></i>
           <span>Clients</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" routerLink="/consulting">
+        <a class="nav-link collapsed" routerLink="/consulting" routerLinkActive="active">
           <i class="pi pi-book" style="font-size: 1rem;"></i>
           <span class="mt-1">Consulting</span>
         </a>
       </li>
     </ul>
+    <ng-template pTemplate="footer">
+      <app-footer></app-footer>
+
+    </ng-template>
   </p-sidebar>
 </div>

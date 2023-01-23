@@ -1,6 +1,6 @@
 <p-table #dt [value]="data" selectionMode="single" [(selection)]="selectedCustomer2" dataKey="id" sortMode="multiple"
     styleClass="p-datatable-customers" [columns]="tableHeader" [rows]="5" [paginator]="true" stateStorage="local"
-    [stateKey]="tableData?.TableId"  [globalFilterFields]="['name','','email','address','phone_number']">
+    [stateKey]="tableData?.TableId"  [globalFilterFields]="['firstName','paid','lastName','date','email','address','phone_number','consulting','resolution']">
     <ng-template pTemplate="caption">
         <div class="d-flex justify-content-end">
             <span class="p-input-icon-left ml-auto">
@@ -26,7 +26,15 @@
         <tr style="height:46px">
             
             <td *ngFor="let col of columns">
-                {{ rowData[col.sortKey] }}
+                <span *ngIf="col.sortKey == 'name'">
+                    {{rowData.first_name}} {{rowData.last_name}}
+                </span>
+                <span *ngIf="col.sortKey == 'paid'">
+                    {{rowData.paid ? 'Paid' : 'Unpaid'}}
+                </span>
+                <span *ngIf="col.sortKey !== 'paid' && col.sortKey !== 'name'" >
+                    {{rowData[col.sortKey]}}
+                </span>
             </td>
             <td *ngIf="tableData?.isActionColumn" class="actions-icons">
                 <i *ngIf="editButtons" class="bi bi-pencil-fill" style="cursor: pointer;margin-right: 10px;" (click)="DataChange('EDIT',rowData)"></i>

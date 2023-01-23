@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Select, Store } from '@ngxs/store';
 import {
   distinctUntilChanged,
@@ -12,6 +11,7 @@ import {
 
 import ConsultingTableData from 'src/assets/json/consulting.json';
 import { ClientAction, ClientModel, ClientState } from 'src/app/store/client';
+import {ConfirmationService, MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-consulting',
@@ -24,9 +24,13 @@ export class ConsultingComponent implements OnInit, OnDestroy {
   ConsultingTableData = {...ConsultingTableData}
   isEditModal: boolean = false;
   sortedList: any = [];
-  selectedUser: any ;
+  editData : any ;
   consultingForm: FormGroup | any;
   recordId: any;
+  feesOptions: any[] =  [
+    {label : 'Paid' , value : true },
+    {label : 'Unpaid' , value : false }
+  ]
   clients:any ;
   @Select(ClientState.getClient) getAllClient$:
     | Observable<ClientModel[]>
@@ -37,10 +41,11 @@ export class ConsultingComponent implements OnInit, OnDestroy {
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
   constructor(
-    private modalService: NgbModal,
     private router: Router,
     private store: Store,
-    private fb : FormBuilder
+    private fb : FormBuilder,
+    private confirmationService : ConfirmationService,
+    private messageService : MessageService
   ) {}
 
   ngOnInit(): void {
@@ -56,6 +61,7 @@ export class ConsultingComponent implements OnInit, OnDestroy {
       ?.pipe(takeUntil(this.destroyed$), distinctUntilChanged())
       .subscribe((data: any) => {
         data?.map((item: any) => {
+          item.name = item.first_name + " " + item.last_name;
           var diff_ms = Date.now() - new Date(item.date_of_birth).getTime();
           var age_dt = new Date(diff_ms);
           const age = Math.abs(age_dt.getUTCFullYear() - 1970);
@@ -75,10 +81,16 @@ export class ConsultingComponent implements OnInit, OnDestroy {
             client?.consulting?.map((consult: any) => {
               this.sortedList.push({
                 id: client.id,
-                name: client.name,
+                first_name : client.first_name,
+                last_name : client.last_name,
+                fees:consult.fees,
+                uuid : consult.uuid,
+                paid : consult.paid, 
                 date: consult.date,
-                illness: consult.illness,
-                prescription: consult.prescription,
+                consulting: consult.consulting,
+                resolution: consult.resolution,
+                consultingDescription : consult.consultingDescription,
+                pDescription : consult.pDescription
               });
             });
           });
@@ -103,21 +115,24 @@ export class ConsultingComponent implements OnInit, OnDestroy {
 
 
   openDetails(item: any) {
-    const details = this.sortedList.find(
-      (c: any) => c.id == item.id && c.illness == item.illness
-    );
-    const queryParams: any = {};
-    queryParams.myArray = JSON.stringify(details);
-    this.router.navigate([`clients/consulting/${item.id}`], { queryParams });
+    const data = {
+      clientId : item.id,
+      uuid: item.uuid
+    }
+    const queryParams: any = {...data};
+    this.router.navigate(['clients-consulting'], { queryParams });
   }
   initForm() {
       this.consultingForm = this.fb.group({
-      selectedUser : ["",Validators.required],
+      id : ["",Validators.required],
+      uuid:[""],
       date: ["", Validators.required],
-      illness: ["", Validators.required],
-      illnessDescription:  ["", Validators.required],
-      prescription: ["", Validators.required],
-      pDescription:  ["", Validators.required],
+      consulting: ["", Validators.required],
+      consultingDescription:  [""],
+      resolution: ["", Validators.required],
+      pDescription:  [""],
+      paid:[''],
+      fees:['']
     });
   }
 
@@ -136,15 +151,29 @@ export class ConsultingComponent implements OnInit, OnDestroy {
   }
   submitDetails() {
     let payload: any = this.consultingForm.value || {};
+    const user:any = this.store.selectSnapshot(ClientState.getClient);
+    const selectedclient = user.find((value:any)=> value.id == payload.id);
     if(this.isEditModal) {
-      let selectedclient = this.selectedUser;
+      this.isEditModal = false;
       const consulting = selectedclient?.consulting || [];
-      const index = consulting?.findIndex((i: any) => new Date(payload.date).getTime() == new Date(i.date).getTime());
-      consulting[index] = payload;
-      const client = { ...selectedclient, consulting };
-      this.store.dispatch(new ClientAction.updateClient(client, client.id,false));
+      const index = consulting?.findIndex((i: any) => i.uuid == payload.uuid);
+      if (index < 0) {
+        this.deleteRecord(payload,true);
+        this.editData = null;
+        delete payload['id'];
+
+        const consult = [ ...selectedclient?.consulting || [], payload];
+        const client = { ...selectedclient, consulting: consult };
+        this.store.dispatch(new ClientAction.updateClient(client, client.id,false));
+      } else {
+        delete payload['id'];
+        consulting[index] = payload;
+        const client = { ...selectedclient, consulting };
+        this.store.dispatch(new ClientAction.updateClient(client, client.id,false));
+      }
     } else {
-      let selectedclient = this.selectedUser;
+      delete payload['id'];
+      payload.uuid = new Date().getTime().toString();
       const consult = [ ...selectedclient?.consulting || [], payload];
       const client = { ...selectedclient, consulting: consult };
       this.store.dispatch(new ClientAction.updateClient(client, client.id,false));
@@ -156,12 +185,69 @@ export class ConsultingComponent implements OnInit, OnDestroy {
     this.isEditModal = false;
     this.toggleDialogButton();
     this.resetDetails();
+    this.editData = payload;
     this.consultingForm.patchValue(payload);
     this.isEditModal = true;
   }
 
+  deleteRecord(payload: any,askInfo?:boolean) {
+    if (!askInfo) {
+      this.confirmationService.confirm({
+        message: 'Are you sure that you want to delete this record?',
+        header: 'Confirmation',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          if (this.editData && payload.id != this.editData.id) {
+            payload.id = this.editData.id;
+          }
+          const user:any = this.store.selectSnapshot(ClientState.getClient);
+          const client = user.find((value:any)=> value.id == payload.id);
+          const consulting = client?.consulting || [];
+          const index = consulting?.findIndex((i: any) => new Date(payload.date).getTime() == new Date(i.date).getTime())
+          consulting.splice(index, 1);
+          client.consulting = consulting;
+          if (this.editData) {
+            this.store.dispatch(new ClientAction.updateClient(client, client.id,false,true));
+          } else {
+            this.store.dispatch(new ClientAction.updateClient(client, client.id,false));
+          }
+        },
+        reject: () => {
+           this.messageService.add({severity:'info', summary:'Denied', detail:'You have Denied the confirmation'})
+        }
+      });
+    }  else {
+      if (this.editData && payload.id != this.editData.id) {
+        payload.id = this.editData.id;
+      }
+      const user:any = this.store.selectSnapshot(ClientState.getClient);
+      const client = user.find((value:any)=> value.id == payload.id);
+      const consulting = client?.consulting || [];
+      const index = consulting?.findIndex((i: any) => new Date(payload.date).getTime() == new Date(i.date).getTime())
+      consulting.splice(index, 1);
+      client.consulting = consulting;
+      if (this.editData) {
+        this.store.dispatch(new ClientAction.updateClient(client, client.id,false,true));
+      } else {
+        this.store.dispatch(new ClientAction.updateClient(client, client.id,false));
+      }
+    }
+  }
+
   changeDetect(event:any) {
-    this.openDetails(event.data)
+    switch (event.type) {
+      case "EDIT":
+        this.openEditModal(event.data)
+        break;
+      case "DELETE" :
+        this.deleteRecord(event.data)
+        break;
+      case "DETAILS" :
+        this.openDetails(event.data)
+        break;  
+      default:
+        break;
+    }
   }
 
   ngOnDestroy() {

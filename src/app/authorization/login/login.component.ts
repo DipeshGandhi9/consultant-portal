@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { Select, Store } from '@ngxs/store';
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
-import { distinctUntilChanged, Observable, ReplaySubject, takeUntil } from 'rxjs';
-import { AutenticationAction, AutenticationState, AutneticationModel } from 'src/app/store/authorization';
+import { Store } from '@ngxs/store';
+import { Router } from "@angular/router";
+
+import { AutenticationAction, } from 'src/app/store/authorization';
 
 @Component({
   selector: 'app-login',
@@ -12,11 +12,6 @@ import { AutenticationAction, AutenticationState, AutneticationModel } from 'src
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  
-  @Select(AutenticationState.isUserLoggedIn) isUserLoggedIn$:
-| Observable<AutneticationModel[]>
-| undefined;
-private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
   constructor(
     public translate : TranslateService,
@@ -29,13 +24,6 @@ private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
   ngOnInit(): void {
     this.initForm();
-    this.isUserLoggedIn$?.pipe(takeUntil(this.destroyed$), distinctUntilChanged())
-    .subscribe((data: any) => {
-        localStorage.setItem("isUserAuthenticated", data);
-        if(data) {         
-          this.router.navigate(['/dashboard']); 
-        }
-    });
   }
 
   initForm() {

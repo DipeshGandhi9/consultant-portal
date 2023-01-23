@@ -91,7 +91,6 @@ export class ClientState {
            this.messageService.add({severity:'success', summary: 'Success', detail: 'Client Added Successfully'});
       })
       .catch((res: any) => {
-        console.log("Error : ", res);
         this.messageService.add({severity:'error', summary: 'error', detail: 'Failed to add client'});
       });
   }
@@ -99,7 +98,7 @@ export class ClientState {
   @Action(ClientAction.updateClient)
   updateClient(
     { getState, setState, patchState }: StateContext<ClientStateModel>,
-    { payload, id, isFromDetails }: ClientAction.updateClient
+    { payload, id, isFromDetails , showPoupup }: ClientAction.updateClient
   ) {
     const state = getState();
     return this.DataStoreService.table(DATABASESETTINGS.CLIENTTABLE)
@@ -111,12 +110,13 @@ export class ClientState {
           } else {
             this.store.dispatch(ClientAction.getAllClient);
           }
-          this.messageService.add({severity:'success', summary: 'Success', detail: 'Client Updated Successfully'});
+         if (!showPoupup) {
+           this.messageService.add({severity:'success', summary: 'Success', detail: 'Client Updated Successfully'});
+         }
         }
       })
       .catch((res: any) => {
         this.messageService.add({severity:'error', summary: 'error', detail: 'Failed to Update Client'});
-        console.log(res);
       });
   }
 
@@ -130,7 +130,6 @@ export class ClientState {
       .filter((value) => value.id == id)
       .toArray()
       .then((data)=>{
-        console.log(data)
         if (data.length > 0) {
           patchState({selectedClient:data[0]})
         }
@@ -150,7 +149,7 @@ export class ClientState {
         this.messageService.add({severity:'success', summary: 'Success', detail: 'Entry Deleted Successfully'});
       })
       .catch((res: any) => {
-        this.messageService.add({severity:'success', summary: 'Success', detail: 'Cannot delete Entry'});
+        this.messageService.add({severity:'error', summary: 'Error', detail: 'Cannot delete Entry'});
       });
   }
 }

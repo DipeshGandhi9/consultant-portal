@@ -63,7 +63,11 @@ export class AutenticationState {
         isLoggedIn : true,
         userData : undefined
       };
+      localStorage.setItem('isUserAuthenticated',"true")
       patchState({ ...state,  ...obj });
+      this.zone.run(()=>{
+        this.router.navigateByUrl("/dashboard")
+      })
       this.messageService.add({
         severity: "success",
         summary: "Success",
@@ -103,6 +107,18 @@ export class AutenticationState {
       });
   }
 
+  @Action(AutenticationAction.validateLogins)
+  validateLogin(
+    { getState, setState, patchState, dispatch }: StateContext<AutenticationStateModel>
+  ){
+    const state = getState();
+      patchState({loader:true})
+      const islogged = localStorage.getItem("isUserAuthenticated");
+      if(islogged) {
+        setState({...state, isLoggedIn:true});
+      }
+      
+  }
 
   // @Action(AutenticationAction.Login)
   // getAllPatients(

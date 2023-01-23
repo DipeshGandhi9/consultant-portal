@@ -12,7 +12,7 @@ export namespace ClientAction {
 
   export class updateClient {
     static readonly type = '[Client] updateClient';
-    constructor(public payload: ClientModel, public id: string, public isFromDetails:boolean) {}
+    constructor(public payload: ClientModel, public id: string, public isFromDetails:boolean,public showPoupup?:boolean) {}
   }
 
   export class getSearchedClients {

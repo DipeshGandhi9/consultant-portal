@@ -1,122 +1,150 @@
-<div style="display: flex; justify-content: space-between; align-items: center; padding: 0px 21px 0px 21px;" class="mt-5 mr-2 ml-2">
-  <h4>List of {{ "global.consulting" | translate }}</h4>
-
-  <div class="filter-add-section ml-2 ">
-    <div class="col-md-12 ">
-      <button type="button" pButton class="p-button mr-2" (click)="open()" >
-        Add Consulting
-      </button>
-    </div>
-  </div>
-</div>
-<div class="consulting-container col-12" id="table">
-  <app-table [data]="sortedList" [tableHeader]="ConsultingTableData.header" [tableData]="ConsultingTableData" [editButtons]="false" (changeDetect)="changeDetect($event)"></app-table>
-  <!-- <table class="table table-striped container-fluid col-12">
-    <thead>
-      <tr>
-        <th>Client Name</th>
-        <th>Date</th>
-        <th>Illness</th>
-        <th>Prescription</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of sortedList | filter : searchedText">
-        <td>{{ item.name }}</td>
-        <td>{{ item.date }}</td>
-        <td>{{ item.illness }}</td>
-        <td>{{ item.prescription }}</td>
-        <td>
-          <button pButton class="p-button" (click)="openDetails(item)">
-            Details
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table> -->
-  <p-dialog header="{{isEditModal ? 'Edit Consulting Details' : 'Add Consulting Details'}}" [(visible)]="detailsDialog" [modal]="true" [style]="{width: '50vw'}" [maximizable]="true" [baseZIndex]="10000"
-  [draggable]="false" [resizable]="false">
-  <form [formGroup]="consultingForm">
-    <div class="col-md-12">
-      <div class="card-body text-black">
-        <div class="row">
-          <div class="col-md-12 mb-4">
-            <label class="form-label">User</label>
-            <p-dropdown [options]="clients" formControlName="selectedUser" [(ngModel)]="selectedUser" placeholder="Select User"  optionLabel="name"></p-dropdown>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-12 mb-4">
-            <label class="form-label">Date</label>
-            <input
-              type="date"
-              class="form-control form-control-lg"
-              formControlName="date"
-            />
-          </div>
-        </div>
-
-        <div class="col-md-12 mb-4">
-          <label class="form-label" for="form3Example8">Illness</label>
-          <div class="form-outline">
-            <input
-              type="text"
-              id="form3Example8"
-              class="form-control form-control-lg"
-              formControlName="illness"
-            />
-          </div>
-        </div>
-
-        <div class="col-md-12 mb-4">
-          <div class="form-outline">
-            <label class="form-label"> Illness Description</label>
-            <p-editor  formControlName="illnessDescription" [style]="{'height':'320px'}"></p-editor>
-          </div>
-        </div>
-
-
-        <div class="col-md-12 mb-4">
-          <div class="form-outline">
-            <label class="form-label">Prescription</label>
-            <input
-              type="text"
-              class="form-control form-control-lg"
-              formControlName="prescription"
-            />
-          </div>
-        </div>
-
-        <div class="col-md-12 mb-4">
-          <div class="form-outline">
-            
-            <label class="form-label">Prescription Description</label>
-            <p-editor  formControlName="pDescription" [style]="{'height':'320px'}"></p-editor>
-          </div>
-        </div>
-
-        <div class="d-flex justify-content-end pt-3">
-          <button
-            type="button"
-            class="btn btn-light btn-lg"
-            (click)="resetDetails()"
-          >
-            Reset all
-          </button>
-          <button
-            type="button"
-            (click)="submitDetails();"
-            class="p-button"
-            [ngClass]="consultingForm.valid ? 'submit-button btn-lg ms-2' : 'submit-button-invalid'"
-            [disabled]="!consultingForm.valid"
-          >
-            Submit form
-          </button>
-        </div>
+<div class="consulting-container col-12">
+  <div class="d-flex justify-content-between align-items-center">
+    <h4>{{ "global.consulting" | translate }}</h4>
+    <div class="filter-add-section">
+      <div class="col-md-12">
+        <button type="button" pButton class="p-button mr-2" (click)="open()">
+          Add Consulting
+        </button>
       </div>
     </div>
-  </form>
+  </div>
+  <app-table
+    [data]="sortedList"
+    [tableHeader]="ConsultingTableData.header"
+    [tableData]="ConsultingTableData"
+    (changeDetect)="changeDetect($event)"
+  ></app-table>
+
+  <p-dialog
+    header="{{
+      isEditModal ? 'Edit Consulting Details' : 'Add Consulting Details'
+    }}"
+    [(visible)]="detailsDialog"
+    [modal]="true"
+    [style]="{ width: '50vw' }"
+    [maximizable]="true"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <form [formGroup]="consultingForm">
+      <div class="col-md-12">
+        <div class="card-body text-black">
+          <div class="row">
+            <div class="col-md-12 mb-4">
+              <label class="form-label">Client*</label>
+              <p-dropdown
+                [options]="clients"
+                optionLabel="firstName "
+                formControlName="id"
+                optionValue="id"
+                placeholder="Select Client"
+                optionLabel="name"
+              ></p-dropdown>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 mb-4">
+              <label class="form-label">Date*</label>
+              <input
+                type="date"
+                class="form-control form-control-lg"
+                formControlName="date"
+              />
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-4">
+            <label class="form-label" for="form3Example8">Consulting For*</label>
+            <div class="form-outline">
+              <input
+                type="text"
+                id="form3Example8"
+                class="form-control form-control-lg"
+                formControlName="consulting"
+              />
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-4">
+            <div class="form-outline">
+              <label class="form-label"> Consulting Details</label>
+              <p-editor
+                formControlName="consultingDescription"
+                [style]="{ height: '320px' }"
+              ></p-editor>
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-4">
+            <div class="form-outline">
+              <label class="form-label">Resolution*</label>
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                formControlName="resolution"
+              />
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-4">
+            <div class="form-outline">
+              <label class="form-label">Comprehensive Solution</label>
+              <p-editor
+                formControlName="pDescription"
+                [style]="{ height: '320px' }"
+              ></p-editor>
+            </div>
+          </div>
+
+          <div
+            class="col-md-12 d-flex justify-content-between align-items-center mb-4"
+          >
+            <div class="col-6 width-set">
+              
+                <div class="col-md-12 mb-4">
+                  <label class="form-label">Fees (INR)*</label>
+                  <input
+                    type="number"
+                    class="form-control form-control-lg fees-large"
+                    formControlName="fees"
+                  />
+                </div>
+            </div>
+            <div class="col-6 width-set">
+              <div class="col-md-12 mb-4">
+                <label class="form-label">Paid*</label>
+                <p-dropdown
+                  [options]="feesOptions"
+                  optionLabel="label"
+                  formControlName="paid"
+                  optionValue="value"
+                  placeholder="select Method"
+                  optionLabel="label"
+                ></p-dropdown>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end pt-3">
+            <button
+              (click)="resetDetails()"
+              pButton
+              pRipple
+              type="button"
+              label="Reset all"
+              class="p-button-outlined button p-button-secondary"
+            ></button>
+            <p-button
+              label="{{ isEditModal ? 'Update Details' : 'Submit' }}"
+              (onClick)="submitDetails()"
+              [disabled]="!consultingForm.valid"
+            ></p-button>
+          </div>
+        </div>
+      </div>
+    </form>
   </p-dialog>
 </div>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Select, Store } from "@ngxs/store";
+import {ConfirmationService, MessageService} from 'primeng/api';
 import {
   distinctUntilChanged,
   Observable,
@@ -49,33 +49,33 @@ export class ClientComponent implements OnInit {
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
   constructor(
-    private modalService: NgbModal,
     private fb: FormBuilder,
     private router: Router,
-    private store: Store
+    private store: Store,
+    private confirmationService: ConfirmationService,
+    private messageService : MessageService
   ) {}
 
   ngOnInit(): void {
     this.getClients();
     this.getSearchedText();
     this.initForm();
-   
   }
 
   initForm() {
     this.clientForm = this.fb.group({
-      firstName : [""],
-      lastName :  [""],
-      name: ["", Validators.required],
+      first_name : ["",Validators.required],
+      last_name :  ["",Validators.required],
       date_of_birth: ["", Validators.required],
       birth_time: ["", Validators.required],
       address: ["", Validators.required],
+      occupation : [""],
       city: ["", Validators.required],
       state: ["", Validators.required],
       country: ["", Validators.required],
       gender: ["", Validators.required],
       email: ["", Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)],
-      phone_number: ["", [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      phone_number: ["", [Validators.pattern(/^\d{10}$/)]],
     });
   }
 
@@ -117,10 +117,11 @@ export class ClientComponent implements OnInit {
 
   submitDetails() {
     const payload = this.clientForm.value;
-    if(this.recordId) {
+    if (this.recordId) {
       payload.id = this.recordId;
-    this.store.dispatch(new ClientAction.updateClient(payload, payload.id, false));
+      this.store.dispatch(new ClientAction.updateClient(payload, payload.id, false));
     } else {
+      payload.date = new Date().toISOString().slice(0, 10) 
       this.store.dispatch(new ClientAction.addClient(payload));
     }
     this.openDialog();
@@ -143,7 +144,17 @@ export class ClientComponent implements OnInit {
   }
 
   deleteRecord(id: any) {
-    this.store.dispatch(new ClientAction.deleteClient(id));
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to delete this record?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+         this.store.dispatch(new ClientAction.deleteClient(id));
+      },
+      reject: () => {
+         this.messageService.add({severity:'info', summary:'Denied', detail:'You have Denied the confirmation'})
+      }
+    });
   }
 
   DetectChange(data:any) {

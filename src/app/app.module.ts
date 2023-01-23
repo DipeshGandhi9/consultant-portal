@@ -13,6 +13,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { EditorModule } from 'primeng/editor';
 import { DropdownModule } from 'primeng/dropdown';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { InputNumberModule } from 'primeng/inputnumber';
+ 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,10 +24,11 @@ import { ConsultingComponent } from './component/consulting/consulting.component
 import { ClientDetailsComponent } from './component/client/client-details/client-details.component';
 import { ConsultingDetailsComponent } from './component/consulting/consulting-details/consulting-details.component';
 import { StoreModule } from './store';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { DataStoreService } from './global-provider/data-store/data-store.service';
 import {ToastModule} from 'primeng/toast';
 import { SharedComponentModule } from './shared-component/shared-component.module';
+import { AgePipe } from './global-provider/pipes/age.pipe';
 
 export function HttpLoaderFactory(http: any) {
   return new TranslateHttpLoader(http);
@@ -35,10 +39,13 @@ export function HttpLoaderFactory(http: any) {
     ClientComponent,
     ConsultingComponent,
     ClientDetailsComponent,
-    ConsultingDetailsComponent
+    ConsultingDetailsComponent,
+    AgePipe
   ],
   imports: [
     BrowserModule,
+    InputNumberModule,
+    ConfirmDialogModule,
     DialogModule,
     DropdownModule,
     RadioButtonModule,
@@ -64,7 +71,7 @@ export function HttpLoaderFactory(http: any) {
     }
   })
   ],
-  providers: [DataStoreService,MessageService],
+  providers: [DataStoreService,MessageService,ConfirmationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
