@@ -2,12 +2,19 @@
   <!-- client details  -->
   <h4>{{ "global.client" | translate }} Information</h4>
   <div class="col-md-8" style="display: flex; justify-content: space-between">
-    <p class="col-md-4"><b>Name:</b> {{ client?.first_name}} {{client?.last_name }}</p>
-    <p class="col-md-4"><b>Age:</b> {{ client?.age }}</p>
+    <p class="col-md-4">
+      <b>Name:</b> {{ client?.first_name }} {{ client?.last_name }}
+    </p>
+    <p class="col-md-4">
+      <b>Age:</b> {{ client?.date_of_birth | age : client?.date_of_birth }}
+    </p>
   </div>
   <div class="col-md-8" style="display: flex; justify-content: space-between">
     <p class="col-md-4">
-      <b>Address:</b> {{ client?.address }} , {{ client?.city }} ,{{ client?.state }} , {{ client?.country }}
+      <b>Address:</b> {{ client?.address }} , {{ client?.city }} ,{{
+        client?.state
+      }}
+      , {{ client?.country }}
     </p>
     <p class="col-md-4"><b>Phone Number:</b> {{ client?.phone_number }}</p>
   </div>
@@ -33,74 +40,135 @@
   <!-- end of header table  -->
 
   <!-- table for cient display -->
-  <app-table [data]="client?.consulting" [tableHeader]="clientConsultingTableData.header"
-    [tableData]="clientConsultingTableData" (changeDetect)="handleChange($event)"></app-table>
+  <app-table
+    [data]="client?.consulting"
+    [tableHeader]="clientConsultingTableData.header"
+    [tableData]="clientConsultingTableData"
+    (changeDetect)="handleChange($event)"
+  ></app-table>
   <!-- end of table  -->
 
   <!-- Form modal to add consulting details-->
-  <p-dialog header="{{
+  <p-dialog
+    header="{{
       isEditModal ? 'Edit Consulting Details' : 'Add Consulting Details'
-    }}" [(visible)]="ConsultingDetails" [modal]="true" [style]="{ width: '50vw' }" [maximizable]="true"
-    [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    }}"
+    [(visible)]="ConsultingDetails"
+    [modal]="true"
+    [style]="{ width: '50vw' }"
+    [maximizable]="true"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+  >
     <form [formGroup]="consultingForm">
       <div class="col-md-12">
         <div class="card-body text-black">
           <div class="row">
             <div class="col-md-12 mb-4">
               <label class="form-label">Date</label>
-              <input type="date" class="form-control form-control-lg" formControlName="date" />
+              <input
+                type="date"
+                class="form-control form-control-lg"
+                formControlName="date"
+              />
             </div>
           </div>
 
           <div class="col-md-12 mb-4">
-            <label class="form-label" for="form3Example8">Comprehensive Solution</label>
+            <label class="form-label" for="form3Example8"
+              >Comprehensive Solution</label
+            >
             <div class="form-outline">
-              <input type="text" id="form3Example8" class="form-control form-control-lg" formControlName="consulting" />
+              <input
+                type="text"
+                id="form3Example8"
+                class="form-control form-control-lg"
+                formControlName="consulting"
+              />
             </div>
           </div>
 
           <div class="col-md-12 mb-4">
             <div class="form-outline">
               <label class="form-label"> Consulting Details </label>
-              <p-editor formControlName="consultingDescription" [style]="{ height: '320px' }"></p-editor>
+              <p-editor
+                formControlName="consultingDescription"
+                [style]="{ height: '320px' }"
+              ></p-editor>
             </div>
           </div>
 
           <div class="col-md-12 mb-4">
             <div class="form-outline">
               <label class="form-label">Resolution</label>
-              <input type="text" class="form-control form-control-lg" formControlName="resolution" />
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                formControlName="resolution"
+              />
             </div>
           </div>
 
           <div class="col-md-12 mb-4">
             <div class="form-outline">
               <label class="form-label">Comprehensive Solution</label>
-              <p-editor formControlName="pDescription" [style]="{ height: '320px' }"></p-editor>
+              <p-editor
+                formControlName="pDescription"
+                [style]="{ height: '320px' }"
+              ></p-editor>
             </div>
           </div>
 
-          <div class="col-md-12 d-flex justify-content-between align-items-center mb-4">
+          <div
+            class="col-md-12 d-flex justify-content-between align-items-center mb-4"
+          >
             <div class="col-6 width-set">
-
               <div class="col-md-12 mb-4">
                 <label class="form-label">Fees (INR)*</label>
-                <input type="number" class="form-control form-control-lg fees-large" formControlName="fees" />
+                <input
+                  type="number"
+                  class="form-control form-control-lg fees-large"
+                  formControlName="fees"
+                />
               </div>
             </div>
             <div class="col-6 width-set">
               <div class="col-md-12 mb-4">
                 <label class="form-label">Paid*</label>
-                <p-dropdown [options]="feesOptions" optionLabel="label" formControlName="paid" optionValue="value"
-                  placeholder="select Method" optionLabel="label"></p-dropdown>
+                <div
+                  *ngFor="let category of feesOptions"
+                  class="p-field-checkbox d-flex "
+                >
+                  <p-radioButton
+                    [inputId]="category?.value"
+                    [value]="category?.value"
+                    formControlName="paid"
+                  ></p-radioButton>
+                  <label
+                    class="form-check-label left-align"
+                    for="category?.value"
+                    >{{ category?.label }}</label
+                  >
+                </div>
               </div>
             </div>
           </div>
 
           <div class="d-flex justify-content-end pt-3">
-            <button (click)="resetDetails()" pButton pRipple type="button" label="Reset all"
-              class="p-button-outlined button p-button-secondary"></button>
-            <p-button label="Submit form" (onClick)="submitDetails()" [disabled]="!consultingForm.valid"></p-button>
+            <button
+              (click)="resetDetails()"
+              pButton
+              pRipple
+              type="button"
+              label="Reset all"
+              class="p-button-outlined button p-button-secondary"
+            ></button>
+            <p-button
+              label="{{isEditModal ? 'Update Details':'Submit form'}}"
+              (onClick)="submitDetails()"
+              [disabled]="!consultingForm.valid"
+            ></p-button>
           </div>
         </div>
       </div>

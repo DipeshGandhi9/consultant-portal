@@ -226,7 +226,7 @@
                 class="p-button-outlined button p-button-secondary"
               ></button>
               <p-button
-                label="Submit form"
+                label="{{recordId ? 'Update Details' : 'Submit Form'}}"
                 (onClick)="submitDetails()"
                 [disabled]="!clientForm.valid"
               ></p-button>

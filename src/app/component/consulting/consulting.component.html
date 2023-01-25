@@ -57,7 +57,9 @@
           </div>
 
           <div class="col-md-12 mb-4">
-            <label class="form-label" for="form3Example8">Consulting For*</label>
+            <label class="form-label" for="form3Example8"
+              >Consulting For*</label
+            >
             <div class="form-outline">
               <input
                 type="text"
@@ -103,27 +105,33 @@
             class="col-md-12 d-flex justify-content-between align-items-center mb-4"
           >
             <div class="col-6 width-set">
-              
-                <div class="col-md-12 mb-4">
-                  <label class="form-label">Fees (INR)*</label>
-                  <input
-                    type="number"
-                    class="form-control form-control-lg fees-large"
-                    formControlName="fees"
-                  />
-                </div>
+              <div class="col-md-12 mb-4">
+                <label class="form-label">Fees (INR)*</label>
+                <input
+                  type="number"
+                  class="form-control form-control-lg fees-large"
+                  formControlName="fees"
+                />
+              </div>
             </div>
             <div class="col-6 width-set">
               <div class="col-md-12 mb-4">
                 <label class="form-label">Paid*</label>
-                <p-dropdown
-                  [options]="feesOptions"
-                  optionLabel="label"
-                  formControlName="paid"
-                  optionValue="value"
-                  placeholder="select Method"
-                  optionLabel="label"
-                ></p-dropdown>
+                <div
+                  *ngFor="let category of feesOptions"
+                  class="p-field-checkbox"
+                >
+                  <p-radioButton
+                   [inputId]="category?.value"
+                    [value]="category?.value"
+                    formControlName="paid"
+                  ></p-radioButton>
+                  <label
+                    class="form-check-label left-align"
+                    for="category?.value"
+                    >{{ category?.label }}</label
+                  >
+                </div>
               </div>
             </div>
           </div>

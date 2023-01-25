@@ -30,9 +30,12 @@
                     {{rowData.first_name}} {{rowData.last_name}}
                 </span>
                 <span *ngIf="col.sortKey == 'paid'">
-                    {{rowData.paid ? 'Paid' : 'Unpaid'}}
+                    {{rowData[col.sortKey] ? 'Paid' : 'Unpaid'}}
                 </span>
-                <span *ngIf="col.sortKey !== 'paid' && col.sortKey !== 'name'" >
+                <span *ngIf="col.sortKey == 'date_of_birth'">
+                    {{rowData[col.sortKey] | age: rowData[col.sortKey] }}
+                </span>
+                <span *ngIf="col.sortKey !== 'paid' && col.sortKey !== 'name' && col.sortKey !== 'date_of_birth' " >
                     {{rowData[col.sortKey]}}
                 </span>
             </td>
@@ -48,7 +51,7 @@
     </ng-template>
     <ng-template pTemplate="emptymessage">
         <tr>
-            <td colspan="4">No Data found.</td>
+            <td colspan="6">No Data found.</td>
         </tr>
     </ng-template>
 </p-table>

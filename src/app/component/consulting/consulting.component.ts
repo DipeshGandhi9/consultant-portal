@@ -62,10 +62,6 @@ export class ConsultingComponent implements OnInit, OnDestroy {
       .subscribe((data: any) => {
         data?.map((item: any) => {
           item.name = item.first_name + " " + item.last_name;
-          var diff_ms = Date.now() - new Date(item.date_of_birth).getTime();
-          var age_dt = new Date(diff_ms);
-          const age = Math.abs(age_dt.getUTCFullYear() - 1970);
-          item.age = age;
         });
         this.clients = data;
       });

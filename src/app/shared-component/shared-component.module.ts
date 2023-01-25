@@ -14,6 +14,7 @@ import { BlankComponent } from './blank/blank.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { AgePipe } from '../global-provider/pipes/age.pipe';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
+    AgePipe,
   ],
   imports: [
     CommonModule,
@@ -38,8 +40,10 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     TableComponent,
     BlankComponent,
     FooterComponent,
+    AgePipe,
     HeaderComponent,
     SidebarComponent,
   ],
+  providers:[]
 })
 export class SharedComponentModule {}

@@ -1,17 +1,18 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
-import { Select, Store } from "@ngxs/store";
-import {ConfirmationService, MessageService} from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Select, Store } from '@ngxs/store';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import {
   distinctUntilChanged,
   Observable,
   ReplaySubject,
   takeUntil,
-} from "rxjs";
+} from 'rxjs';
 
-import ClientData from 'src/assets/json/client.json'
+import ClientData from 'src/assets/json/client.json';
 import { ClientAction, ClientModel, ClientState } from 'src/app/store/client';
+import { AgePipe } from 'src/app/global-provider/pipes/age.pipe';
 
 interface Client {
   id: number;
@@ -30,14 +31,15 @@ interface Client {
 }
 
 @Component({
-  selector: "app-clients",
-  templateUrl: "./client.component.html",
-  styleUrls: ["./client.component.scss"],
+  selector: 'app-clients',
+  templateUrl: './client.component.html',
+  styleUrls: ['./client.component.scss'],
+  providers: [AgePipe],
 })
 export class ClientComponent implements OnInit {
-  searchedText: string = "";
+  searchedText: string = '';
   clients: Client[] = [];
-  ClientData = {...ClientData}
+  ClientData = { ...ClientData };
   clientForm: FormGroup | any;
   detailsDialog: boolean = false;
   recordId: any;
@@ -45,7 +47,9 @@ export class ClientComponent implements OnInit {
   @Select(ClientState.getClient) getAllClient$:
     | Observable<ClientModel[]>
     | undefined;
-  @Select(ClientState.searchClients) searchClients$:  Observable<String> | undefined;
+  @Select(ClientState.searchClients) searchClients$:
+    | Observable<String>
+    | undefined;
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
   constructor(
@@ -53,7 +57,8 @@ export class ClientComponent implements OnInit {
     private router: Router,
     private store: Store,
     private confirmationService: ConfirmationService,
-    private messageService : MessageService
+    private messageService: MessageService,
+    private agePipe: AgePipe
   ) {}
 
   ngOnInit(): void {
@@ -64,41 +69,43 @@ export class ClientComponent implements OnInit {
 
   initForm() {
     this.clientForm = this.fb.group({
-      first_name : ["",Validators.required],
-      last_name :  ["",Validators.required],
-      date_of_birth: ["", Validators.required],
-      birth_time: ["", Validators.required],
-      address: ["", Validators.required],
-      occupation : [""],
-      city: ["", Validators.required],
-      state: ["", Validators.required],
-      country: ["", Validators.required],
-      gender: ["", Validators.required],
-      email: ["", Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)],
-      phone_number: ["", [Validators.pattern(/^\d{10}$/)]],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      date_of_birth: ['', Validators.required],
+      birth_time: ['', Validators.required],
+      address: ['', Validators.required],
+      occupation: [''],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      country: ['', Validators.required],
+      gender: ['', Validators.required],
+      email: [
+        '',
+        Validators.pattern(
+          /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        ),
+      ],
+      phone_number: ['', [Validators.pattern(/^\d{10}$/)]],
     });
   }
 
   getSearchedText() {
-    this.searchClients$?.pipe(takeUntil(this.destroyed$), distinctUntilChanged())
-    .subscribe((data: any) => {
-      this.searchedText = data;
-    });
+    this.searchClients$
+      ?.pipe(takeUntil(this.destroyed$), distinctUntilChanged())
+      .subscribe((data: any) => {
+        this.searchedText = data;
+      });
   }
-  
+
   getClients() {
-    this.store.dispatch(ClientAction.getAllClient);
     this.getAllClient$
       ?.pipe(takeUntil(this.destroyed$), distinctUntilChanged())
       .subscribe((data: any) => {
-        data?.map((item: any) => {
-          var diff_ms = Date.now() - new Date(item.date_of_birth).getTime();
-          var age_dt = new Date(diff_ms);
-          const age = Math.abs(age_dt.getUTCFullYear() - 1970);
-          item.age = age;
-        });
         this.clients = data;
       });
+    if (!this.clients) {
+      this.store.dispatch(ClientAction.getAllClient);
+    }
   }
 
   openDialog() {
@@ -119,9 +126,12 @@ export class ClientComponent implements OnInit {
     const payload = this.clientForm.value;
     if (this.recordId) {
       payload.id = this.recordId;
-      this.store.dispatch(new ClientAction.updateClient(payload, payload.id, false));
+      this.store.dispatch(
+        new ClientAction.updateClient(payload, payload.id, false)
+      );
+      this.recordId = null;
     } else {
-      payload.date = new Date().toISOString().slice(0, 10) 
+      payload.date = new Date().toISOString().slice(0, 10);
       this.store.dispatch(new ClientAction.addClient(payload));
     }
     this.openDialog();
@@ -149,27 +159,31 @@ export class ClientComponent implements OnInit {
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-         this.store.dispatch(new ClientAction.deleteClient(id));
+        this.store.dispatch(new ClientAction.deleteClient(id));
       },
       reject: () => {
-         this.messageService.add({severity:'info', summary:'Denied', detail:'You have Denied the confirmation'})
-      }
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Denied',
+          detail: 'You have Denied the confirmation',
+        });
+      },
     });
   }
 
-  DetectChange(data:any) {
-     switch (data.type) {
-      case "DETAILS":
-         this.openDetails(data.data.id);
+  DetectChange(data: any) {
+    switch (data.type) {
+      case 'DETAILS':
+        this.openDetails(data.data.id);
         break;
-      case "DELETE":
-         this.deleteRecord(data.data.id)
+      case 'DELETE':
+        this.deleteRecord(data.data.id);
         break;
-      case "EDIT" :
-         this.openEditModal(data.data);
-        break; 
+      case 'EDIT':
+        this.openEditModal(data.data);
+        break;
       default:
         break;
-     }
+    }
   }
 }

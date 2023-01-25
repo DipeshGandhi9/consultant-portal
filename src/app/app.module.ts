@@ -9,7 +9,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { EditorModule } from 'primeng/editor';
 import { DropdownModule } from 'primeng/dropdown';
@@ -28,7 +27,6 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { DataStoreService } from './global-provider/data-store/data-store.service';
 import {ToastModule} from 'primeng/toast';
 import { SharedComponentModule } from './shared-component/shared-component.module';
-import { AgePipe } from './global-provider/pipes/age.pipe';
 
 export function HttpLoaderFactory(http: any) {
   return new TranslateHttpLoader(http);
@@ -40,7 +38,6 @@ export function HttpLoaderFactory(http: any) {
     ConsultingComponent,
     ClientDetailsComponent,
     ConsultingDetailsComponent,
-    AgePipe
   ],
   imports: [
     BrowserModule,
@@ -59,7 +56,6 @@ export function HttpLoaderFactory(http: any) {
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    Ng2SearchPipeModule,
     HttpClientModule,
     StoreModule,
     // QuillModule.forRoot(),

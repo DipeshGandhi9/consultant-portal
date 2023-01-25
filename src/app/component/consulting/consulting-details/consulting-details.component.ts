@@ -47,10 +47,6 @@ export class ConsultingDetailsComponent implements OnInit, OnDestroy {
   getClidentDetails() {
     this.store.dispatch(new ClientAction.getSelectedClient(this.clientId));
     this.getClientDetails$?.pipe(takeUntil(this.destroyed$),distinctUntilChanged()).subscribe((data:any)=>{
-      var diff_ms = Date.now() - new Date(data?.date_of_birth).getTime();
-      var age_dt = new Date(diff_ms);
-      const age = Math.abs(age_dt.getUTCFullYear() - 1970);
-      age ? data["age"] = age : "";
       this.clientData = data; 
       this.initial = this.clientData?.first_name[0]+ this.clientData?.last_name[0] || "";  
       this.selectedConsulting = data?.consulting?.find((value:any)=> value.uuid = this.uuid);
