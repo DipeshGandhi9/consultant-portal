@@ -9,8 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "electron": "ng build && electron .",
-    "package": "ng build &&  electron-forge package",
+    "electron": "ng build --base-href ./ && electron .",
+    "package": "ng build --base-href ./ &&  electron-forge package",
     "make": "electron-forge make"
   },
   "private": true,
