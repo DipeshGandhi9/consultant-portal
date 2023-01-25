@@ -11,6 +11,7 @@
     "e2e": "ng e2e",
     "electron": "ng build --base-href ./ && electron .",
     "package": "ng build --base-href ./ &&  electron-forge package",
+    "package32": "ng build --base-href ./ &&  electron-forge package  --arch=ia32",
     "make": "electron-forge make"
   },
   "private": true,
