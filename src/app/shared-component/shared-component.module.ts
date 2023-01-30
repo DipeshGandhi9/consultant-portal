@@ -7,6 +7,7 @@ import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
+import { EditorModule } from 'primeng/editor';
  
 import { SharedComponentRoutingModule } from './shared-component-routing.module';
 import { TableComponent } from './table/table.component';
@@ -15,6 +16,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AgePipe } from '../global-provider/pipes/age.pipe';
+import { QuillEditorComponent } from './quill-editor/quill-editor.component';
 
 @NgModule({
   declarations: [
@@ -24,9 +26,11 @@ import { AgePipe } from '../global-provider/pipes/age.pipe';
     FooterComponent,
     SidebarComponent,
     AgePipe,
+    QuillEditorComponent,
   ],
   imports: [
     CommonModule,
+    EditorModule,
     DialogModule,
     TableModule,
     ButtonModule,
@@ -39,6 +43,7 @@ import { AgePipe } from '../global-provider/pipes/age.pipe';
   exports: [
     TableComponent,
     BlankComponent,
+    QuillEditorComponent,
     FooterComponent,
     AgePipe,
     HeaderComponent,

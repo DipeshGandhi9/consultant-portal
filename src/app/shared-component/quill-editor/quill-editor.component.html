@@ -1,0 +1,59 @@
+<div class="col-md-12 mb-4 quill-editor">
+            <div [className]="selectedFont">       
+       <p-editor [style]="{ height: '320px' }">
+        <p-header>
+            <span class="ql-formats">
+            <select class="ql-font" (change)="onFontChange($event)" style="min-width: 100px; width: auto">
+                <option class="arial" value="arial">Arial</option>
+                <option class="timesNewRoman" value="timesNewRoman">
+                Times New Roman
+                </option>
+                <option class="sansSerif" value="sansSerif">Sans Serif</option>
+                <option class="zapfino" value="zapfino">Zapfino</option>
+            </select>
+            <select class="ql-size">
+                <option value="small"></option>
+                <option selected></option>
+                <option value="large"></option>
+                <option value="huge"></option>
+            </select>
+            <button class="ql-bold"></button>
+            <button class="ql-italic"></button>
+            <button class="ql-underline"></button>
+            <button class="ql-strike"></button>
+            <span class="ql-formats">
+                <select class="ql-color"></select>
+                <select class="ql-background"></select>
+            </span>
+            <span class="ql-formats">
+                <button class="ql-list" value="ordered"></button>
+                <button class="ql-list" value="bullet"></button>
+                <button class="ql-indent" value="-1"></button>
+                <button class="ql-indent" value="+1"></button>
+                <select class="ql-align">
+                <option selected></option>
+                <option value="center"></option>
+                <option value="justify"></option>
+                <option value="right"></option>
+                </select>
+            </span>
+            <span class="ql-formats">
+                <button class="ql-header" value="1"></button>
+                <button class="ql-header" value="2"></button>
+                <button class="ql-script" value="sub"></button>
+                <button class="ql-script" value="super"></button>
+            </span>
+            <span class="ql-formats">
+                <button class="ql-direction" value="rtl"></button>
+            </span>
+            <button class="ql-link"></button>
+            <button class="ql-image"></button>
+            <button class="ql-video"></button>
+            <button class="ql-code-block"></button>
+            <button class="ql-clean"></button>
+            </span>
+        </p-header>
+        </p-editor>
+        </div>
+        </div>
+        

@@ -90,6 +90,7 @@ export class ConsultingComponent implements OnInit, OnDestroy {
                 consultingDescription : consult.consultingDescription,
                 pDescription : consult.pDescription
               });
+              console.log("this.sortedList",this.sortedList)
             });
           });
           this.sortedList.sort((a: any, b: any) => {
@@ -249,11 +250,7 @@ export class ConsultingComponent implements OnInit, OnDestroy {
         break;
     }
   }
-
-  onFontChange(event: any) {
-    this.selectedFont = event.target.value;
-  }
-
+  
   ngOnDestroy() {
     this.destroyed$.next(true);
   }
