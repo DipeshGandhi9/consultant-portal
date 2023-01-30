@@ -1,13 +1,11 @@
 <p-table #dt [value]="data" selectionMode="single" [(selection)]="selectedCustomer2" dataKey="id" sortMode="multiple"
     styleClass="p-datatable-customers" [columns]="tableHeader" [rows]="5" [paginator]="true" stateStorage="local"
-    [stateKey]="tableData?.TableId"
-    [globalFilterFields]="['firstName','paid','lastName','date','email','address','phone_number','consulting','resolution']">
+    [stateKey]="tableData?.TableId"  [globalFilterFields]="['firstName','paid','lastName','date','email','address','phone_number','consulting','resolution']">
     <ng-template pTemplate="caption">
         <div class="d-flex justify-content-end">
             <span class="p-input-icon-left ml-auto">
                 <i class="pi pi-search"></i>
-                <input pInputText type="text" (input)="applyFilter($event)" placeholder="Search keyword"
-                    [(ngModel)]="searchedValue" />
+                <input pInputText type="text" (input)="applyFilter($event)" placeholder="Search keyword" [(ngModel)]="searchedValue" />
             </span>
         </div>
     </ng-template>
@@ -26,7 +24,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
         <tr style="height:46px">
-
+            
             <td *ngFor="let col of columns">
                 <span *ngIf="col.sortKey == 'name'">
                     {{rowData.first_name}} {{rowData.last_name}}
@@ -37,15 +35,13 @@
                 <span *ngIf="col.sortKey == 'date_of_birth'">
                     {{rowData[col.sortKey] | age: rowData[col.sortKey] }}
                 </span>
-                <span *ngIf="col.sortKey !== 'paid' && col.sortKey !== 'name' && col.sortKey !== 'date_of_birth' ">
+                <span *ngIf="col.sortKey !== 'paid' && col.sortKey !== 'name' && col.sortKey !== 'date_of_birth' " >
                     {{rowData[col.sortKey]}}
                 </span>
             </td>
             <td *ngIf="tableData?.isActionColumn" class="actions-icons">
-                <i *ngIf="editButtons" class="pi pi-pencil" style="cursor: pointer;margin-right: 10px;"
-                    (click)="DataChange('EDIT',rowData)"></i>
-                <i *ngIf="editButtons" class="pi pi-trash" style="cursor: pointer;margin-right: 10px;"
-                    (click)="DataChange('DELETE',rowData)"></i>
+                <i *ngIf="editButtons" class="pi pi-pencil" style="cursor: pointer;margin-right: 10px;" (click)="DataChange('EDIT',rowData)"></i>
+                <i *ngIf="editButtons"class="pi pi-trash" style="cursor: pointer;margin-right: 10px;" (click)="DataChange('DELETE',rowData)"></i>
                 <button pButton class="p-button" (click)="DataChange('DETAILS',rowData)">
                     Details
                 </button>

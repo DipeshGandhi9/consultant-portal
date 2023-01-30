@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
@@ -17,6 +17,7 @@ import {ConfirmationService, MessageService} from 'primeng/api';
   selector: 'app-consulting',
   templateUrl: './consulting.component.html',
   styleUrls: ['./consulting.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ConsultingComponent implements OnInit, OnDestroy {
   searchedText: string = '';
@@ -39,6 +40,7 @@ export class ConsultingComponent implements OnInit, OnDestroy {
     | Observable<String>
     | undefined;
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
+  selectedFont: string = "Arial";
 
   constructor(
     private router: Router,
@@ -101,6 +103,7 @@ export class ConsultingComponent implements OnInit, OnDestroy {
       }
     }
   }
+
   getSearchedText() {
     this.searchClients$
       ?.pipe(takeUntil(this.destroyed$), distinctUntilChanged())
@@ -108,7 +111,6 @@ export class ConsultingComponent implements OnInit, OnDestroy {
         this.searchedText = data;
       });
   }
-
 
   openDetails(item: any) {
     const data = {
@@ -118,6 +120,7 @@ export class ConsultingComponent implements OnInit, OnDestroy {
     const queryParams: any = {...data};
     this.router.navigate(['clients-consulting'], { queryParams });
   }
+
   initForm() {
       this.consultingForm = this.fb.group({
       id : ["",Validators.required],
@@ -145,6 +148,7 @@ export class ConsultingComponent implements OnInit, OnDestroy {
     this.resetDetails();
     this.toggleDialogButton();
   }
+
   submitDetails() {
     let payload: any = this.consultingForm.value || {};
     const user:any = this.store.selectSnapshot(ClientState.getClient);
@@ -244,6 +248,10 @@ export class ConsultingComponent implements OnInit, OnDestroy {
       default:
         break;
     }
+  }
+
+  onFontChange(event: any) {
+    this.selectedFont = event.target.value;
   }
 
   ngOnDestroy() {

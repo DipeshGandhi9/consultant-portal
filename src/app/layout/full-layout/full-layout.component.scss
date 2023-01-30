@@ -1,9 +1,15 @@
 .full-layout {
     .sidebar-container {
         margin-left: 16rem;
+        // overflow-y: auto;
+        // height: calc(100vh - 130px);
+        // min-height: calc(100vh - 130px);
     }
     .container {
         margin-left: 0px 5%;
         max-width: 90%;
+        // overflow-y: auto;
+        // height: calc(100vh - 130px);
+        // min-height: calc(100vh - 130px);
     }
 }
