@@ -14,7 +14,7 @@ import { EditorModule } from 'primeng/editor';
 import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputNumberModule } from 'primeng/inputnumber';
- 
+import { DialogService } from 'primeng/dynamicdialog'; 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -58,7 +58,6 @@ export function HttpLoaderFactory(http: any) {
     ReactiveFormsModule,
     HttpClientModule,
     StoreModule,
-    // QuillModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -67,7 +66,7 @@ export function HttpLoaderFactory(http: any) {
     }
   })
   ],
-  providers: [DataStoreService,MessageService,ConfirmationService],
+  providers: [DataStoreService,MessageService,ConfirmationService,DialogService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

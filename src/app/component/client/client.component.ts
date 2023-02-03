@@ -13,6 +13,7 @@ import {
 import ClientData from 'src/assets/json/client.json';
 import { ClientAction, ClientModel, ClientState } from 'src/app/store/client';
 import { AgePipe } from 'src/app/global-provider/pipes/age.pipe';
+import { dialogService } from 'src/app/shared-component/dialog/dialog-service/dialog.service';
 
 interface Client {
   id: number;
@@ -55,6 +56,7 @@ export class ClientComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private DialogService:dialogService,
     private store: Store,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,

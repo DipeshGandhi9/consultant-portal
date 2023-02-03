@@ -42,7 +42,7 @@
             <td *ngIf="tableData?.isActionColumn" class="actions-icons">
                 <i *ngIf="editButtons" class="pi pi-pencil" style="cursor: pointer;margin-right: 10px;" (click)="DataChange('EDIT',rowData)"></i>
                 <i *ngIf="editButtons"class="pi pi-trash" style="cursor: pointer;margin-right: 10px;" (click)="DataChange('DELETE',rowData)"></i>
-                <button pButton class="p-button" (click)="DataChange('DETAILS',rowData)">
+                <button pButton class="p-button" (click)="detailsPage(rowData)">
                     Details
                 </button>
 

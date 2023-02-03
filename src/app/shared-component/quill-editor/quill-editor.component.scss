@@ -1,5 +1,8 @@
 // ******font-families********
-
+@font-face{
+  font-family: "text-align";
+  src: url("../../../assets/fonts/Roboto/Roboto-Black.ttf") format("truetype");
+}
 /* Set default font-family */
 .quill-editor .ql-editor {
     font-family: "Arial";
@@ -13,6 +16,10 @@
     font-family: "Times New Roman";
   }
   
+  .quill-editor .roboto .ql-editor {
+    font-family: "text-align";
+  }
+
   .quill-editor .sansSerif .ql-editor {
     font-family: "Sans Serif";
   }

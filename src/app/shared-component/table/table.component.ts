@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Table } from 'primeng/table';
+import { dialogService } from '../dialog/dialog-service/dialog.service';
 
 
 @Component({
@@ -11,16 +13,17 @@ export class TableComponent implements OnInit {
   @Input('data') data :any ;
   @Input('tableHeader') tableHeader: any;
   @Input('tableData') tableData: any;
+  @Input('isFromDetails') isFromDetails:boolean ;
   @Input('editButtons') editButtons : boolean = true;
   @Output() changeDetect = new EventEmitter<any>();
   @ViewChild('dt') dt: Table;
 
-
-  customers2:any ;
   searchedValue:string ;
 
   selectedCustomer2 : any ;
-  constructor() {}
+  constructor(
+    private router:Router
+  ) {}
 
   ngOnInit(): void {
     
@@ -32,6 +35,20 @@ export class TableComponent implements OnInit {
   applyFilter(event:any) {
     this.dt.filterGlobal(event?.target.value, 'contains')
   }
+
+  detailsPage(item:any) {
+    if (this.isFromDetails) {
+      const data = {
+        clientId : item.id,
+        uuid: item.uuid
+      }
+      const queryParams: any = {...data};
+      this.router.navigate(['clients-consulting'], { queryParams });
+    } else {
+     this.router.navigate([`/clients/${item.id}`]);
+    }
+  }
+  
   DataChange(type:string,data:any) {
     const payload = {
       type : type,

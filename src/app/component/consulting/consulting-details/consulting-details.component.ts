@@ -34,13 +34,13 @@ export class ConsultingDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getClientId();
-    this.getClidentDetails();
   }
 
   getClientId() {
-    this.activatedRoute.queryParams.subscribe((data:any)=>{
+    this.activatedRoute.queryParams.pipe(takeUntil(this.destroyed$),distinctUntilChanged()).subscribe((data:any)=>{
       this.clientId = data.clientId;
       this.uuid = data.uuid;
+      this.getClidentDetails();
     });
   }
 
@@ -49,7 +49,7 @@ export class ConsultingDetailsComponent implements OnInit, OnDestroy {
     this.getClientDetails$?.pipe(takeUntil(this.destroyed$),distinctUntilChanged()).subscribe((data:any)=>{
       this.clientData = data; 
       this.initial = this.clientData?.first_name[0]+ this.clientData?.last_name[0] || "";  
-      this.selectedConsulting = data?.consulting?.find((value:any)=> value.uuid = this.uuid);
+      this.selectedConsulting = data?.consulting?.find((value:any)=> value.uuid == this.uuid);
     })
   }
 
