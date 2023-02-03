@@ -8,8 +8,10 @@
             style="cursor: pointer"
             (click)="goBack()"
           >
-            <i class="pi pi-arrow-left" style="font-size: 1rem"></i>
-            <li class="breadcrumb-item">&nbsp; Back</li>
+            <div class="link-color d-flex align-items-center">
+              <i class="pi pi-arrow-left" style="font-size: 1rem"></i>
+              <li class="breadcrumb-item">&nbsp; Back</li>
+            </div>
           </ol>
         </nav>
       </div>
@@ -74,6 +76,45 @@
                 [innerHTML]="selectedConsulting?.pDescription"
               ></p>
             </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-sm-3">
+              <p class="mb-0">Consulting Fees</p>
+            </div>
+            <div class="col-sm-9">
+              <p
+                class="text-muted mb-0"
+                [innerHTML]="selectedConsulting?.fees"
+              ></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row consulting-container">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">{{ selectedConsulting?.consulting }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">
+            {{ selectedConsulting?.date }}
+          </h6>
+          <div class="card-text">
+            <p
+              class="text-muted mb-0"
+              [innerHTML]="selectedConsulting?.consultingDescription"
+            ></p>
+          </div>
+
+          <hr />
+
+          <h5 class="card-title">{{ selectedConsulting?.resolution }}</h5>
+          <div class="card-text">
+            <p
+              class="text-muted mb-0"
+              [innerHTML]="selectedConsulting?.pDescription"
+            ></p>
           </div>
           <hr />
           <div class="row">
