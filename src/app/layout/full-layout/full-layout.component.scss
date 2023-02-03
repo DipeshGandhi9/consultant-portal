@@ -1,4 +1,10 @@
 .full-layout {
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
     .sidebar-container {
         margin-left: 16rem;
         // overflow-y: auto;

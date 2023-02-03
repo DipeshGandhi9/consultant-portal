@@ -1,12 +1,15 @@
 <div class="full-layout">
-  <app-sidebar [visibleSidebar]="visibleSidebar"></app-sidebar>
-  <app-header
-    [visibleSidebar]="visibleSidebar"
-    (showSidebar)="showSidebar()"
-    (changeText)="changeText($event)"
-  ></app-header>
-  <div [ngClass]="visibleSidebar ? 'sidebar-container': 'container'">
-    <router-outlet></router-outlet>
+  <div>
+    <app-sidebar [visibleSidebar]="visibleSidebar"></app-sidebar>
+    <app-header
+      [visibleSidebar]="visibleSidebar"
+      (showSidebar)="showSidebar()"
+      (changeText)="changeText($event)"
+    ></app-header>
+    <div [ngClass]="visibleSidebar ? 'sidebar-container' : 'container'">
+      <router-outlet></router-outlet>
+    </div>
   </div>
+
   <app-footer></app-footer>
 </div>
