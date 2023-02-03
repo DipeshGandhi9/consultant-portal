@@ -19,6 +19,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { AgePipe } from '../global-provider/pipes/age.pipe';
 import { QuillEditorComponent } from './quill-editor/quill-editor.component';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { ClientDetailViewComponent } from './client-detail-view/client-detail-view.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     SidebarComponent,
     AgePipe,
     QuillEditorComponent,
+    ClientDetailViewComponent,
   ],
   imports: [
     CommonModule,
@@ -52,6 +54,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     AgePipe,
     HeaderComponent,
     SidebarComponent,
+    ClientDetailViewComponent
   ],
   providers:[DialogService]
 })

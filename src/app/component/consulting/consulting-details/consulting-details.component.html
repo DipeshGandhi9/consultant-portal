@@ -1,148 +1,90 @@
-<section style="background-color: #eee;">
+<section style="background-color: #eee">
   <div class="container py-5">
     <div class="row">
       <div class="col">
         <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
-          <ol class="breadcrumb mb-0 d-flex align-items-center" style="cursor: pointer;" (click)="calling()">
-              <i class="pi pi-arrow-left"   style="font-size: 1rem"></i>
+          <ol
+            class="breadcrumb mb-0 d-flex align-items-center"
+            style="cursor: pointer"
+            (click)="goBack()"
+          >
+            <i class="pi pi-arrow-left" style="font-size: 1rem"></i>
             <li class="breadcrumb-item">&nbsp; Back</li>
           </ol>
         </nav>
       </div>
     </div>
 
-    <div class="row" id="content" #content>
-      <div class="col-lg-4">
-        <div class="card mb-4">
-          <div class="card-body text-center">
-            <div class="d-flex justify-content-around">
-              <div class="image" [innerHTML]="initial"></div>
+    <app-client-detail-view [clientData]="clientData"></app-client-detail-view>
 
-            </div>
-            <h5 class="my-3">{{clientData?.first_name}} {{clientData?.last_name}}</h5>
-            <p class="text-muted mb-1">{{clientData?.occupation}}</p>
-            <p class="text-muted mb-4">{{clientData?.address}}, {{clientData?.city}}, {{clientData?.state}}, {{clientData?.country}}</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-8">
-        <div class="card mb-4">
-          <div class="card-body">
-            <p class="mb-4"> <strong> Client Details </strong>
-            </p>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Full Name</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{clientData?.first_name}} {{clientData?.last_name}}</p>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Email</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{clientData?.email}}</p>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Mobile</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{clientData?.phone_number}}</p>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Address</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{clientData?.address}}, {{clientData?.city}}, {{clientData?.state}}, {{clientData?.country}}</p>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Age</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{clientData?.date_of_birth | age : clientData?.date_of_birth}}</p>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Gender</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{clientData?.gender}}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="row consulting-container">
       <div class="card mb-4">
         <div class="card-body">
-          <p class="mb-4"> <strong> Consulting Details </strong>
-          </p>
+          <p class="mb-4"><strong> Consulting Details </strong></p>
           <div class="row">
             <div class="col-sm-3">
               <p class="mb-0">Date</p>
             </div>
             <div class="col-sm-9">
-              <p class="text-muted mb-0">{{selectedConsulting?.date}}</p>
+              <p class="text-muted mb-0">{{ selectedConsulting?.date }}</p>
             </div>
           </div>
-          <hr>
+          <hr />
           <div class="row">
             <div class="col-sm-3">
               <p class="mb-0">Consulting For</p>
             </div>
             <div class="col-sm-9">
-              <p class="text-muted mb-0">{{selectedConsulting?.consulting}}</p>
+              <p class="text-muted mb-0">
+                {{ selectedConsulting?.consulting }}
+              </p>
             </div>
           </div>
-          <hr>
+          <hr />
           <div class="row">
             <div class="col-sm-3">
               <p class="mb-0">Consulting Details</p>
             </div>
             <div class="col-sm-9">
-              <p class="text-muted mb-0" [innerHTML]="selectedConsulting?.consultingDescription"></p>
+              <p
+                class="text-muted mb-0"
+                [innerHTML]="selectedConsulting?.consultingDescription"
+              ></p>
             </div>
           </div>
-          <hr>
+          <hr />
           <div class="row">
             <div class="col-sm-3">
               <p class="mb-0">Resolution</p>
             </div>
             <div class="col-sm-9">
-              <p class="text-muted mb-0">{{selectedConsulting?.resolution}}</p>
+              <p class="text-muted mb-0">
+                {{ selectedConsulting?.resolution }}
+              </p>
             </div>
           </div>
-          <hr>
+          <hr />
           <div class="row">
             <div class="col-sm-3">
-              <p class="mb-0">Comprehensive Solution </p>
+              <p class="mb-0">Comprehensive Solution</p>
             </div>
             <div class="col-sm-9">
-              <p class="text-muted mb-0" [innerHTML]="selectedConsulting?.pDescription"></p>
+              <p
+                class="text-muted mb-0"
+                [innerHTML]="selectedConsulting?.pDescription"
+              ></p>
             </div>
           </div>
-          <hr>
+          <hr />
           <div class="row">
             <div class="col-sm-3">
-              <p class="mb-0">Consulting Fees </p>
+              <p class="mb-0">Consulting Fees</p>
             </div>
             <div class="col-sm-9">
-              <p class="text-muted mb-0" [innerHTML]="selectedConsulting?.fees"></p>
+              <p
+                class="text-muted mb-0"
+                [innerHTML]="selectedConsulting?.fees"
+              ></p>
             </div>
           </div>
         </div>

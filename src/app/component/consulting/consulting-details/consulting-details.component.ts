@@ -53,11 +53,9 @@ export class ConsultingDetailsComponent implements OnInit, OnDestroy {
     })
   }
 
-  calling() {
+  goBack() {
     this._location.back();
   }
-
-
 
   ngOnDestroy() {
     this.destroyed$.next(true);

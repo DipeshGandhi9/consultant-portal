@@ -1,51 +1,56 @@
-<div class="patient-details">
-  <!-- client details  -->
-  <h4>{{ "global.client" | translate }} Information</h4>
-  <div class="col-md-8" style="display: flex; justify-content: space-between">
-    <p class="col-md-4">
-      <b>Name:</b> {{ client?.first_name }} {{ client?.last_name }}
-    </p>
-    <p class="col-md-4">
-      <b>Age:</b> {{ client?.date_of_birth | age : client?.date_of_birth }}
-    </p>
-  </div>
-  <div class="col-md-8" style="display: flex; justify-content: space-between">
-    <p class="col-md-4">
-      <b>Address:</b> {{ client?.address }} , {{ client?.city }} ,{{
-        client?.state
-      }}
-      , {{ client?.country }}
-    </p>
-    <p class="col-md-4"><b>Phone Number:</b> {{ client?.phone_number }}</p>
-  </div>
-  <div class="col-md-8" style="display: flex; justify-content: space-between">
-    <p class="col-md-4"><b>Gender:</b> {{ client?.gender }}</p>
-    <p class="col-md-4" *ngIf="client?.email">
-      <b>Email:</b> {{ client?.email }}
-    </p>
-  </div>
-  <!-- end of client details  -->
+<section style="background-color: #eee">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+          <ol
+            class="breadcrumb mb-0 d-flex align-items-center"
+            style="cursor: pointer"
+            (click)="goBack()"
+          >
+            <i class="pi pi-arrow-left" style="font-size: 1rem"></i>
+            <li class="breadcrumb-item">&nbsp; Back</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
 
-  <!-- header for table  -->
-  <div class="d-flex justify-content-between mt-2">
-    <h4>List of {{ "global.consulting" | translate }}</h4>
-    <div class="filter-add-section">
-      <div class="col-md-12">
-        <button type="button" pButton class="p-button" (click)="open()">
-          Add Consulting
-        </button>
+    <app-client-detail-view [clientData]="client"></app-client-detail-view>
+
+    <div class="row">
+      <div class="col">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <!-- header for table  -->
+            <div class="d-flex justify-content-between mt-2">
+              <h4>List of {{ "global.consulting" | translate }}</h4>
+              <div class="filter-add-section">
+                <div class="col-md-12">
+                  <button
+                    type="button"
+                    pButton
+                    class="p-button"
+                    (click)="open()"
+                  >
+                    Add Consulting
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- end of header table  -->
+
+            <!-- table for cient display -->
+            <app-table
+              [data]="client?.consulting"
+              [isFromDetails]="true"
+              [tableHeader]="clientConsultingTableData.header"
+              [tableData]="clientConsultingTableData"
+              (changeDetect)="handleChange($event)"
+            ></app-table>
+            <!-- end of table  -->
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <!-- end of header table  -->
-
-  <!-- table for cient display -->
-  <app-table
-    [data]="client?.consulting"
-    [isFromDetails]="true"
-    [tableHeader]="clientConsultingTableData.header"
-    [tableData]="clientConsultingTableData"
-    (changeDetect)="handleChange($event)"
-  ></app-table>
-  <!-- end of table  -->
-</div>
+</section>

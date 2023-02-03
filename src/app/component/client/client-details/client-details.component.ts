@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { Select, Store } from '@ngxs/store';
@@ -35,7 +36,8 @@ export class ClientDetailsComponent implements OnInit {
     private store: Store,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private DialogService:dialogService
+    private DialogService:dialogService,
+    private _location:Location,
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +56,10 @@ export class ClientDetailsComponent implements OnInit {
         })
         this.client = data;
       });
+  }
+
+  goBack() {
+    this._location.back();
   }
   
   open() {
