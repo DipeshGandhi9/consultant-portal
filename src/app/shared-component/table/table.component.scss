@@ -1,12 +1,36 @@
 .p-button {
     color: #fff;
-    background: #bfc0c7;
+    background: #012970;
     border: 1px solid #bfc0c7;
     float: right;
 }
+
+.p-button:hover{
+    background-color: #4154f1;
+}
+
 .actions-icons {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    color: #bfc0c7;
+    color: #012970;
 }
+
+.pi-pencil:hover{
+    color: #4154f1;
+}
+
+.pi-trash:hover{
+    color: #4154f1;
+}
+
+
+:host ::ng-deep.p-paginator .p-paginator-pages .p-paginator-page.p-highlight{
+    background: #012970;
+    border: none;
+}
+
+:host ::ng-deep.p-paginator .p-paginator-pages .p-paginator-page.p-highlight :hover{
+    color: #4154f1;
+}
+

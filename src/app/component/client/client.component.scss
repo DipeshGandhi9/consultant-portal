@@ -9,12 +9,15 @@
       width: 50%;
     }
   }
-  // .p-button {
-  //   color: #fff;
-  //   background: #bfc0c7;
-  //   border: 1px solid #bfc0c7;
-  //   float: right;
-  // }
+  .p-button {
+    color: #fff;
+    background: #012970;
+    border: 1px solid #bfc0c7;
+    float: right;
+  }
+  .p-button:hover{
+    background: #4154f1;
+  }
   .container-fluid {
     margin-top: 30px;
   }
@@ -26,8 +29,8 @@
   }
 }
 .submit-button {
-  color: #fff;
-  background: #1d4e87;
+  color: #899bbd;
+  background: #012970;
   border: none;
   border-radius: 5px;
 }
@@ -101,4 +104,12 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 .width-set {
   width: 49% !important;
+}
+
+:host::ng-deep.p-button{
+  background: #012970;
+}
+
+:host::ng-deep.p-button:hover{
+  background: #4154f1;
 }

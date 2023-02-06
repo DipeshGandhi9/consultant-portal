@@ -22,84 +22,10 @@
     <div class="row consulting-container">
       <div class="card mb-4">
         <div class="card-body">
-          <p class="mb-4"><strong> Consulting Details </strong></p>
-          <div class="row">
-            <div class="col-sm-3">
-              <p class="mb-0">Date</p>
-            </div>
-            <div class="col-sm-9">
-              <p class="text-muted mb-0">{{ selectedConsulting?.date }}</p>
-            </div>
-          </div>
-          <hr />
-          <div class="row">
-            <div class="col-sm-3">
-              <p class="mb-0">Consulting For</p>
-            </div>
-            <div class="col-sm-9">
-              <p class="text-muted mb-0">
-                {{ selectedConsulting?.consulting }}
-              </p>
-            </div>
-          </div>
-          <hr />
-          <div class="row">
-            <div class="col-sm-3">
-              <p class="mb-0">Consulting Details</p>
-            </div>
-            <div class="col-sm-9">
-              <p
-                class="text-muted mb-0"
-                [innerHTML]="selectedConsulting?.consultingDescription"
-              ></p>
-            </div>
-          </div>
-          <hr />
-          <div class="row">
-            <div class="col-sm-3">
-              <p class="mb-0">Resolution</p>
-            </div>
-            <div class="col-sm-9">
-              <p class="text-muted mb-0">
-                {{ selectedConsulting?.resolution }}
-              </p>
-            </div>
-          </div>
-          <hr />
-          <div class="row">
-            <div class="col-sm-3">
-              <p class="mb-0">Comprehensive Solution</p>
-            </div>
-            <div class="col-sm-9">
-              <p
-                class="text-muted mb-0"
-                [innerHTML]="selectedConsulting?.pDescription"
-              ></p>
-            </div>
-          </div>
-          <hr />
-          <div class="row">
-            <div class="col-sm-3">
-              <p class="mb-0">Consulting Fees</p>
-            </div>
-            <div class="col-sm-9">
-              <p
-                class="text-muted mb-0"
-                [innerHTML]="selectedConsulting?.fees"
-              ></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row consulting-container">
-      <div class="card mb-4">
-        <div class="card-body">
+          <p class="text-right" style="text-align: right">
+            <small class="text-muted">{{ selectedConsulting?.date }}</small>
+          </p>
           <h5 class="card-title">{{ selectedConsulting?.consulting }}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">
-            {{ selectedConsulting?.date }}
-          </h6>
           <div class="card-text">
             <p
               class="text-muted mb-0"
@@ -119,7 +45,10 @@
           <hr />
           <div class="row">
             <div class="col-sm-3">
-              <p class="mb-0">Consulting Fees</p>
+              <p class="mb-0">
+                Consulting Fees
+                {{ selectedConsulting?.paid ? "Paid" : "Unpaid" }}
+              </p>
             </div>
             <div class="col-sm-9">
               <p

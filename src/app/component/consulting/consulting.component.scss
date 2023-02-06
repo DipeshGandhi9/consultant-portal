@@ -14,9 +14,13 @@
 
   .p-button {
     color: #fff;
-    background: #bfc0c7;
+    background: #012970;
     border: 1px solid #bfc0c7;
     float: right;
+  }
+
+  .p-button:hover{
+    background: #4154f1;
   }
 
   .container-fluid {
@@ -74,3 +78,4 @@ input[type="number"]::-webkit-outer-spin-button {
   appearance: none;
   margin: 0;
 }
+

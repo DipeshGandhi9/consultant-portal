@@ -24,3 +24,10 @@
     font-size: 1rem;
     border-radius: 0.2rem;
 }
+:host::ng-deep.p-button{
+    background: #012970;
+  }
+  
+  :host::ng-deep.p-button:hover{
+    background: #4154f1;
+  }
