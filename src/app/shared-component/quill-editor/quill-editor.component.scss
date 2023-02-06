@@ -1,85 +1,108 @@
 // ******font-families********
-@font-face{
+@font-face {
   font-family: "Roboto";
   src: url("../../../assets/fonts/Roboto/Roboto-Black.ttf") format("truetype");
 }
+
+@font-face {
+  font-family: "Kruti Dev";
+  src: url("../../../assets/fonts/Kruti-Dev-010-Regular/Kruti-Dev-010-Regular.ttf")
+    format("truetype");
+}
+
 /* Set default font-family */
 .quill-editor .ql-editor {
-    font-family: "Arial";
-  }
-  
-  .quill-editor .arial .ql-editor {
-    font-family: "Arial";
-  }
-  
-  .quill-editor .timesNewRoman .ql-editor {
-    font-family: "Times New Roman";
-  }
-  
-  .quill-editor .roboto .ql-editor {
-    font-family: "Roboto";
-  }
+  font-family: "Arial";
+}
 
-  .quill-editor .sansSerif .ql-editor {
-    font-family: "Sans Serif";
-  }
-  
-  .quill-editor .zapfino .ql-editor {
-    font-family: "Zapfino";
-  }
-  
-  /* Set dropdown font-families */
-  .quill-editor .ql-formats .ql-font span[data-label="Arial"]::before {
-    font-family: "Arial";
-  }
-  
-  .quill-editor .ql-formats .ql-font span[data-label="Times New Roman"]::before {
-    font-family: "Times New Roman";
-  }
-  
-  .quill-editor .ql-formats .ql-font span[data-label="Sans Serif"]::before {
-    font-family: "Sans Serif";
-  }
+.quill-editor .arial .ql-editor {
+  font-family: "Arial";
+}
 
-  .quill-editor .ql-formats .ql-font span[data-label="Roboto"]::before {
-    font-family: "Roboto";
-  }
-  
-  .quill-editor .ql-formats .ql-font span[data-label="Zapfino"]::before {
-    font-family: "Zapfino";
-  }
-  
-  .quill-editor .ql-font .arial {
-    font-family: Arial;
-  }
-  
-  .quill-editor .ql-font .timesNewRoman {
-    font-family: "Times New Roman";
-  }
-  
-  .quill-editor .ql-font .sansSarif {
-    font-family: "Sans Serif";
-  }
+.quill-editor .timesNewRoman .ql-editor {
+  font-family: "Times New Roman";
+}
 
-  .quill-editor .ql-font .roboto {
-    font-family: "Roboto";
-  }
-  
-  .quill-editor .ql-font .zapfino {
-    font-family: "Zapfino";
-  }
-  
-  .ql-picker.ql-font .ql-picker-label[data-label]:not([data-label=""])::before {
-    overflow-wrap: break-word;
-    word-break: break-all;
-    width: auto;
-  }
-  
-  .ql-snow .ql-picker:not(.ql-color-picker):not(.ql-icon-picker) svg {
-    right: auto;
-  }
-  
-  .ql-size {
-    margin-left: 10px;
-    width: auto;
-  }
+.quill-editor .roboto .ql-editor {
+  font-family: "Roboto";
+}
+
+.quill-editor .sansSerif .ql-editor {
+  font-family: "Sans Serif";
+}
+
+.quill-editor .zapfino .ql-editor {
+  font-family: "Zapfino";
+}
+
+.quill-editor .krutiDev .ql-editor {
+  font-family: "Kruti Dev";
+}
+
+/* Set dropdown font-families */
+.quill-editor .ql-formats .ql-font span[data-label="Arial"]::before {
+  font-family: "Arial";
+}
+
+.quill-editor .ql-formats .ql-font span[data-label="Times New Roman"]::before {
+  font-family: "Times New Roman";
+}
+
+.quill-editor .ql-formats .ql-font span[data-label="Sans Serif"]::before {
+  font-family: "Sans Serif";
+}
+
+.quill-editor .ql-formats .ql-font span[data-label="Zapfino"]::before {
+  font-family: "Zapfino";
+}
+
+.quill-editor .ql-formats .ql-font span[data-label="Roboto"]::before {
+  font-family: "Roboto";
+}
+
+.quill-editor .ql-formats .ql-font span[data-label="Kruti Dev"]::before {
+  font-family: "Kruti Dev";
+}
+
+.quill-editor .ql-font .arial {
+  font-family: Arial;
+}
+
+.quill-editor .ql-font .timesNewRoman {
+  font-family: "Times New Roman";
+}
+
+.quill-editor .ql-font .sansSarif {
+  font-family: "Sans Serif";
+}
+
+.quill-editor .ql-font .roboto {
+  font-family: "Roboto";
+}
+
+.quill-editor .ql-font .zapfino {
+  font-family: "Zapfino";
+}
+
+.quill-editor .ql-font .roboto {
+  font-family: "Roboto";
+}
+
+.quill-editor .ql-font .krutiDev {
+  font-family: "Kruti Dev";
+}
+
+.ql-picker.ql-font .ql-picker-label[data-label]:not([data-label=""])::before {
+  overflow-wrap: break-word;
+  word-break: break-all;
+  width: auto;
+}
+
+.ql-snow .ql-picker:not(.ql-color-picker):not(.ql-icon-picker) svg {
+  right: auto;
+}
+
+.ql-size {
+  margin-left: 10px;
+  width: auto;
+}
