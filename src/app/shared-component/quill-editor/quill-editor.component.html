@@ -1,10 +1,7 @@
 <div class="col-md-12 mb-4 quill-editor">
   <div [className]="selectedFont">
     <form [formGroup]="formGrop">
-      <p-editor
-        [style]="{ height: '320px' }"
-        [formControlName]="fieldName"
-      >
+      <p-editor [style]="{ height: '320px' }" [formControlName]="fieldName">
         <p-header>
           <span class="ql-formats">
             <select
@@ -12,13 +9,41 @@
               (change)="onFontChange($event)"
               style="min-width: 100px; width: auto"
             >
-              <option class="arial" value="arial">Arial</option>
-              <option class="timesNewRoman" value="timesNewRoman">
+              <option
+                class="arial"
+                value="arial"
+                [selected]="selectedFont == 'arial'"
+              >
+                Arial
+              </option>
+              <option
+                class="timesNewRoman"
+                value="timesNewRoman"
+                [selected]="selectedFont == 'timesNewRoman'"
+              >
                 Times New Roman
               </option>
-              <option class="sansSerif" value="sansSerif">Sans Serif</option>
-              <option class="zapfino" value="zapfino">Zapfino</option>
-              <option class="roboto" value="roboto">ROboto</option>
+              <option
+                class="sansSerif"
+                value="sansSerif"
+                [selected]="selectedFont == 'sansSerif'"
+              >
+                Sans Serif
+              </option>
+              <option
+                class="zapfino"
+                value="zapfino"
+                [selected]="selectedFont == 'zapfino'"
+              >
+                Zapfino
+              </option>
+              <option
+                class="roboto"
+                value="roboto"
+                [selected]="selectedFont == 'roboto'"
+              >
+                Roboto
+              </option>
             </select>
             <select class="ql-size">
               <option value="small"></option>

@@ -59,7 +59,9 @@ export class ConsultingComponent implements OnInit, OnDestroy {
                 consulting: consult.consulting,
                 resolution: consult.resolution,
                 consultingDescription : consult.consultingDescription,
-                pDescription : consult.pDescription
+                pDescription : consult.pDescription,
+                consultingDescription_fontStyle: [data?.consultingDescription_fontStyle || ''],
+                pDescription_fontStyle: [data?.pDescription_fontStyle || ''],
               });
             });
           });

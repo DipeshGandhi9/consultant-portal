@@ -1,6 +1,6 @@
 // ******font-families********
 @font-face{
-  font-family: "text-align";
+  font-family: "Roboto";
   src: url("../../../assets/fonts/Roboto/Roboto-Black.ttf") format("truetype");
 }
 /* Set default font-family */
@@ -17,7 +17,7 @@
   }
   
   .quill-editor .roboto .ql-editor {
-    font-family: "text-align";
+    font-family: "Roboto";
   }
 
   .quill-editor .sansSerif .ql-editor {
@@ -40,6 +40,14 @@
   .quill-editor .ql-formats .ql-font span[data-label="Sans Serif"]::before {
     font-family: "Sans Serif";
   }
+
+  .quill-editor .ql-formats .ql-font span[data-label="Roboto"]::before {
+    font-family: "Roboto";
+  }
+  
+  .quill-editor .ql-formats .ql-font span[data-label="Zapfino"]::before {
+    font-family: "Zapfino";
+  }
   
   .quill-editor .ql-font .arial {
     font-family: Arial;
@@ -51,6 +59,10 @@
   
   .quill-editor .ql-font .sansSarif {
     font-family: "Sans Serif";
+  }
+
+  .quill-editor .ql-font .roboto {
+    font-family: "Roboto";
   }
   
   .quill-editor .ql-font .zapfino {

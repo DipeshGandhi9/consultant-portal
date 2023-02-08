@@ -15,10 +15,11 @@ export class QuillEditorComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.formGrop,this.fieldName)
+    this.selectedFont = this.formGrop.controls[this.fieldName + '_fontStyle'].value;
   }
   
   onFontChange(event: any) {
     this.selectedFont = event.target.value;
+    this.formGrop.controls[this.fieldName + '_fontStyle'].setValue(this.selectedFont);
   }
 }

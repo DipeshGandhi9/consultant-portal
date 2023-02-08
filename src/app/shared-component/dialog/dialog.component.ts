@@ -74,6 +74,8 @@ export class DialogComponent implements OnInit {
       pDescription: [data?.pDescription || ''],
       paid: [data?.paid || ''],
       fees: [data?.fees || ''],
+      consultingDescription_fontStyle: [data?.consultingDescription_fontStyle || ''],
+      pDescription_fontStyle: [data?.pDescription_fontStyle || ''],
     });
   }
   resetDetails() {

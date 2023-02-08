@@ -26,9 +26,10 @@
             <small class="text-muted">{{ selectedConsulting?.date }}</small>
           </p>
           <h5 class="card-title">{{ selectedConsulting?.consulting }}</h5>
-          <div class="card-text">
+          <div class="card-text ql-font">
             <p
               class="text-muted mb-0"
+              [ngClass]="selectedConsulting?.consultingDescription_fontStyle"
               [innerHTML]="selectedConsulting?.consultingDescription"
             ></p>
           </div>
@@ -36,9 +37,10 @@
           <hr />
 
           <h5 class="card-title">{{ selectedConsulting?.resolution }}</h5>
-          <div class="card-text">
+          <div class="card-text ql-font">
             <p
               class="text-muted mb-0"
+              [ngClass]="selectedConsulting?.pDescription_fontStyle"
               [innerHTML]="selectedConsulting?.pDescription"
             ></p>
           </div>
