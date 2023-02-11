@@ -15,8 +15,8 @@ export interface AutenticationStateModel {
 }
 
 let dummyUser = {
-  name:'Dipesh Gandhi',
-  email:'dipesh@jyotitechnosoft.com',
+  name:'Ajay Gadiya',
+  email:'ajay@mail.com',
   password:'password',
 }
 
