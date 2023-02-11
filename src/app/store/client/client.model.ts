@@ -8,6 +8,7 @@ export class ClientModel extends JsonApiModel {
   @Attribute() name: string | undefined
   @Attribute() date_of_birth: string | undefined;
   @Attribute() birth_time: string | undefined;
+  @Attribute() birth_place: string | undefined;
   @Attribute() phone_number: number | undefined;
   @Attribute() address: string | undefined;
   @Attribute() city: string | undefined;

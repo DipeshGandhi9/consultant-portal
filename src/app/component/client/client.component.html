@@ -115,6 +115,18 @@
               </div>
             </div>
 
+            <div class="col-md-12 mb-4">
+              <label class="form-label" for="birth_place">Birrth Place*</label>
+              <div class="form-outline">
+                <input
+                  type="text"
+                  id="birth_place"
+                  class="form-control form-control-lg"
+                  formControlName="birth_place"
+                />
+              </div>
+            </div>
+
             <div class="row">
               <div class="col-md-12 mb-4">
                 <label class="form-label" for="occupation">Occupation</label>
@@ -128,7 +140,7 @@
             </div>
 
             <div class="col-md-12 mb-4">
-              <label class="form-label" for="address">Address*</label>
+              <label class="form-label" for="address">Address</label>
               <div class="form-outline">
                 <input
                   type="text"
@@ -226,7 +238,7 @@
                 class="p-button-outlined button p-button-secondary"
               ></button>
               <p-button
-                label="{{recordId ? 'Update Details' : 'Submit Form'}}"
+                label="{{ recordId ? 'Update Details' : 'Submit Form' }}"
                 (onClick)="submitDetails()"
                 [disabled]="!clientForm.valid"
               ></p-button>
