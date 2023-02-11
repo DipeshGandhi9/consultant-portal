@@ -10,7 +10,7 @@ export class DataStoreService extends Dexie {
   constructor() {
     super(DATABASESETTINGS.DATABASENAME);                     
     this.version(1).stores({
-      clients: '++id, first_name,last_name, date_of_birth, birth_time, phone_number,address,city, state, country, email,date',
+      clients: '++id, first_name,last_name, date_of_birth, birth_time, birth_place, phone_number,address,city, state, country, email,date',
     });
 
     this.version(2).stores({

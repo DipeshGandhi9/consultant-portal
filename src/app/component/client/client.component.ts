@@ -21,6 +21,7 @@ interface Client {
   age: number;
   date_of_birth: string;
   birth_time: string;
+  birth_place: String;
   phone_number: number;
   address: string;
   city: string;
@@ -75,7 +76,8 @@ export class ClientComponent implements OnInit {
       last_name: ['', Validators.required],
       date_of_birth: ['', Validators.required],
       birth_time: ['', Validators.required],
-      address: ['', Validators.required],
+      birth_place: ['', Validators.required],
+      address: [''],
       occupation: [''],
       city: ['', Validators.required],
       state: ['', Validators.required],
