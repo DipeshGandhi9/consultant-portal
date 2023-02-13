@@ -1,10 +1,7 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
   <div class="d-flex align-items-center justify-content-between">
-    <a
-      class="logo d-flex align-items-center"
-      (click)="onShowSidebarClick()"
-      style="cursor: pointer; text-decoration: none !important"
-    >
+    <a class="logo d-flex align-items-center" (click)="onShowSidebarClick()"
+      style="cursor: pointer; text-decoration: none !important">
       <img src="assets/img/logo.png" alt="" />
       <span class="d-lg-block">consultant</span>
     </a>
@@ -27,24 +24,15 @@
       </li> -->
 
       <li class="nav-item dropdown pe-3">
-        <a
-          class="nav-link nav-profile d-flex align-items-center pe-0"
-          style="cursor: pointer"
-          data-bs-toggle="dropdown"
-        >
-          <img
-            src="assets/img/header-image.jpg"
-            alt="Profile"
-            class="rounded-circle"
-          />
-          <span class="d-none d-md-block dropdown-toggle ps-2"
-            >Ajay Gadiya</span
-          >
+        <a class="nav-link nav-profile d-flex align-items-center pe-0" style="cursor: pointer"
+          data-bs-toggle="dropdown">
+          <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" />
+          <span class="d-none d-md-block dropdown-toggle ps-2">Ajay Gadia</span>
         </a>
 
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
           <li class="dropdown-header">
-            <h6>Ajay Gadiya</h6>
+            <h6>Ajay Gadia</h6>
             <span>Astro Consultant</span>
           </li>
           <li>
@@ -52,10 +40,7 @@
           </li>
 
           <li class="hover" style="cursor: pointer">
-            <a
-              class="dropdown-item d-flex align-items-center"
-              (click)="information = true"
-            >
+            <a class="dropdown-item d-flex align-items-center" (click)="information = true">
               <i class="bi bi-info-square"></i>
               <span>About Us</span>
             </a>
@@ -73,15 +58,8 @@
   </nav>
 </header>
 
-<p-dialog
-  header="About Us "
-  [(visible)]="information"
-  [modal]="true"
-  [style]="{ width: '50vw' }"
-  [baseZIndex]="10000"
-  [draggable]="false"
-  [resizable]="false"
->
+<p-dialog header="About Us " [(visible)]="information" [modal]="true" [style]="{ width: '50vw' }" [baseZIndex]="10000"
+  [draggable]="false" [resizable]="false">
   <div class="container">
     <div class="d-flex justify-content-around">
       <img src="assets/img/logo.png" alt="" />
@@ -96,17 +74,11 @@
       </div>
       <div class="credits">
         Designed by
-        <a href="https://jyotitechnosoft.com/" target="_blank"
-          >Jyoti Technosoft LLP</a
-        >
+        <a href="https://jyotitechnosoft.com/" target="_blank">Jyoti Technosoft LLP</a>
       </div>
     </div>
   </div>
   <ng-template pTemplate="footer">
-    <p-button
-      icon="pi pi-times"
-      (click)="information = false"
-      label="Close"
-    ></p-button>
+    <p-button icon="pi pi-times" (click)="information = false" label="Close"></p-button>
   </ng-template>
 </p-dialog>
