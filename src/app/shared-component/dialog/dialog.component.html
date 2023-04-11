@@ -110,7 +110,7 @@
           class="p-button-outlined button p-button-secondary"
         ></button>
         <p-button
-          label="{{ this.config.data ? 'Update Details' : 'Submit' }}"
+          label="{{ this.isEdit ? 'Update Details' : 'Submit' }}"
           (onClick)="submitDetails()"
           [disabled]="!consultingForm.valid"
         ></p-button>

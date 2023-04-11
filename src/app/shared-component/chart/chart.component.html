@@ -1,0 +1,20 @@
+<div>
+  <h4>{{heading}}</h4>
+  <div
+    #chart
+    id="chart"
+    class="w-100 h-100"
+    [ngClass]="noData ? 'd-none' : ''"
+  ></div>
+</div>
+
+<div
+  *ngIf="noData"
+  class="h-100 w-100 d-flex justify-content-center align-items-center"
+>
+  <h3
+    class="col text-center d-flex justify-content-center align-items-center m-0"
+  >
+    No Data
+  </h3>
+</div>

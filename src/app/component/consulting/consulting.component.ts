@@ -82,7 +82,7 @@ export class ConsultingComponent implements OnInit, OnDestroy {
     let payload:any = {
       isFromConsulting : true
     };
-    this.DialogService.consultingDialog(false,payload);
+    this.DialogService.consultingDialog(undefined,payload);
   }
 
 

@@ -20,6 +20,7 @@ import { AgePipe } from '../global-provider/pipes/age.pipe';
 import { QuillEditorComponent } from './quill-editor/quill-editor.component';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ClientDetailViewComponent } from './client-detail-view/client-detail-view.component';
+import { ChartComponent } from './chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ClientDetailViewComponent } from './client-detail-view/client-detail-vi
     AgePipe,
     QuillEditorComponent,
     ClientDetailViewComponent,
+    ChartComponent,
   ],
   imports: [
     CommonModule,
@@ -49,6 +51,7 @@ import { ClientDetailViewComponent } from './client-detail-view/client-detail-vi
   exports: [
     TableComponent,
     BlankComponent,
+    ChartComponent,
     QuillEditorComponent,
     FooterComponent,
     AgePipe,

@@ -1,27 +1,61 @@
-<div class="dashboard">
-  <div class="cards" id="dashboard">
-    <div class="card col-xxl-4 col-md-6">
-      <div class="card-body">
-        <h5 class="card-title">Total Clients</h5>
-        <h6 class="card-text">{{ totalClients ? totalClients : '-' }}</h6>
+<div class="dashboard mt-5">
+  <div class="container-sm">
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Total Clients</h5>
+            <h6 class="card-text">{{ totalClients ? totalClients : "-" }}</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Today's New Clients</h5>
+            <h6 class="card-text">
+              {{ totalTodaysClients ? totalTodaysClients : "-" }}
+            </h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Total Consulting</h5>
+            <h6 class="card-text">
+              {{ totalTopDiseases ? totalTopDiseases : "-" }}
+            </h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Today Top Consulting</h5>
+            <h6 class="card-text">
+              {{ totalTodaysTopDiseases ? totalTodaysTopDiseases : "-" }}
+            </h6>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="card col-xxl-4 col-md-6">
-      <div class="card-body">
-        <h5 class="card-title">Today's New Clients</h5>
-        <h6 class="card-text">{{ totalTodaysClients ? totalTodaysClients : '-' }}</h6>
+  </div>
+  <div class="container-sm">
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <app-bar-chart [heading]="'Consulting Details'" [data]="data"></app-bar-chart>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="card col-xxl-4 col-md-6">
-      <div class="card-body">
-        <h5 class="card-title">Total Consulting</h5>
-        <h6 class="card-text">{{ totalTopDiseases ? totalTopDiseases : '-' }}</h6>
-      </div>
-    </div>
-    <div class="card col-xxl-4 col-md-6">
-      <div class="card-body">
-        <h5 class="card-title">Today's Consulting</h5>
-        <h6 class="card-text">{{ totalTodaysTopDiseases ? totalTodaysTopDiseases : '-'  }}</h6>
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <app-bar-chart [heading]="'Clients Details'" [data]="data1"></app-bar-chart>
+          </div>
+        </div>
       </div>
     </div>
   </div>

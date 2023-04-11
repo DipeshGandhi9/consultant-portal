@@ -29,7 +29,7 @@ export class DialogComponent implements OnInit {
 
   consultingForm!: FormGroup;
   isFromConsulting: boolean = this.config?.data?.isFromConsulting;
-  isEdit: boolean = this.config?.data?.isEdit;
+  isEdit: boolean;
   clients: any;
   feesOptions = [
     { label: 'Paid', value: true },
@@ -43,6 +43,7 @@ export class DialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isEdit = this.config?.data?.isEdit ?  this.config?.data?.isEdit : false
     this.initFormFields(this.config?.data);
     if (this.isFromConsulting) {
       this.getClient();
